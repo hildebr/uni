@@ -1,0 +1,48 @@
+\documentclass[a4paper,10pt]{article}
+
+% Hier die Nummer des Blatts und Autoren angeben.
+\newcommand{\blatt}{1}
+\newcommand{\autor}{Foo}
+
+\usepackage{hci}
+
+\begin{document}
+% Seitenkopf mit Informationen
+\kopf
+\renewcommand{\figurename}{Figure}
+
+\aufgabe{5}
+
+Fuer den Best-Case nehmen wir an, dass Input in die Adresszeile des Browsers als Google-Suche funktioniert und dass beim Oeffnen des Browsers sofort getippt werden kann, ohne die Adresszeile vorher anklicken zu muessen. Außerdem wird der Begriff „Interaktionsdesign“ durch fruehere Suchen nach diesem Begriff sehr viel frueher als Autofil-Option angezeigt. Die Haende des Nutzers sind auf der Tastatur. \\
+
+GOAL: BEST-CASE-METHOD \\ \\
+-	PRESS-WINDOWS-KEY \\
+-	TYPE-'CHROME' \\
+-	PRESS-ENTER \\
+-	TYPE-'INTER'-INTO-ADRESS-BAR \\
+-	CHECK-IF-THE-AUTOFIL-IS-CORRECT \\
+-	PRESS-ENTER \\
+Total time: $K + T(6) + K + T(5) + M + K = 5.12$ \\
+
+Fuer den Worst-Case nehmen wir an, dass eine Browser-Verknuepfung erst einmal gesucht werden muss. Danach muss die Google-Website aufgerufen werden, und es wird mehrfach nach der korrekten Autofil-Option geschaut. Die Haende starten auf Maus \& Tastatur. \\
+
+GOAL: WORST-CASE-METHOD \\ \\
+-	LOCATE-BROWSER-SHORTCUT \\
+-	MOVE-CURSOR-OVER-BROWSER-SHORTCUT \\
+-	DOUBLE-CLICK-LEFT-MOUSE-BUTTON \\
+-	MOVE-CURSOR-OVER-ADRESS-BAR \\
+-	CLICK-LEFT-MOUSE-BUTTON \\
+-	MOVE-HAND-TO-KEYBOARD \\
+-	TYPE-'WWW.GOOGLE.COM' \\
+-	PRESS-ENTER \\
+-	TYPE-'INTER'-INTO-GOOGLE \\
+-	CHECK-SUGGESTED-SEARCH-QUERIES \\
+-	TYPE-'AKTIONS'-INTO-GOOGLE \\
+-	CHECK-SUGGESTED-SEARCH-QUERIES \\
+-	MOVE-HAND-TO-MOUSE \\
+-	MOVE-CURSOR-TO-'INTERAKTIONSDESIGN' \\
+-	CLICK-LEFT-MOUSE-BUTTON \\
+Total time: $M + P + BB + BB + P + BB + H + T(14) + K + T(5) + M + T(7) + M + H + P + BB = 15.86$ \\ \\
+
+Die zweite Methode dauert 309\% laenger.
+\end{document}

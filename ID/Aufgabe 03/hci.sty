@@ -1,0 +1,53 @@
+\usepackage[ngerman]{babel}
+\usepackage{geometry}
+\usepackage{fancyhdr}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{listings}
+\usepackage{bold-extra}
+\usepackage{ifpdf}
+\usepackage{graphicx}
+
+ 
+\geometry{left=2.5cm,right=2.5cm,top=2.0cm,bottom=2.0cm}
+\parindent0mm
+
+\pagestyle{fancy}
+
+\ifpdf
+\pdfinfo {
+	/Author (\autor)
+	/Title (Interaktionsdesign I \blatt)
+}
+\fi
+
+\newcommand{\betreuer}{Prof. Dr. Frank Steinicke}
+\renewcommand{\figurename}{Abbildung}
+
+
+\newcommand{\kopf}{
+    \Large
+    \centerline{\textbf{Human-Computer Interaction}}
+    \vspace*{0.1\baselineskip}
+    \large
+    \centerline{\textbf{Bearbeitung zu \emph{Interaktionsdesign}, SoSe 2015}}
+    \vspace*{0.1\baselineskip}
+    \normalsize
+    Betreuer:~\betreuer\\
+    Autor(en):~\autor~\hfill~{\"U}bung~\blatt \\
+    \rule{\textwidth}{.25pt}
+}
+
+\headsep.5cm
+
+
+
+\renewcommand{\headrulewidth}{.25pt}
+\renewcommand{\footrulewidth}{.25pt}
+
+\renewcommand{\labelenumi}{(\alph{enumi})}
+\renewcommand{\labelenumii}{(\roman{enumii})}
+
+\newcommand{\aufgabe}[1]{\section*{Aufgabe #1}}
+
+\newcommand{\sourcecode}[1]{\lstinputlisting[caption={#1},label=lst:#1,language=C++,frame=single,showstringspaces=false,basicstyle={\ttfamily \small},breaklines=true,breakatwhitespace=true,tabsize=4,numbers=left,stepnumber=5,numberfirstline=false,firstnumber=1,numberstyle={\scriptsize}]{#1}}
