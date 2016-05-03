@@ -1,0 +1,23 @@
+11 
+    de.renew.gui.CPNDrawing 9 
+        de.renew.gui.TransitionFigure "attributes" "attributes" 3 "FigureWithID" "Int" 1554 "FrameColor" "Color" 0 0 0 255 "FillColor" "Color" 112 219 147 255 59 66 24 16 NULL  
+        de.renew.gui.PlaceFigure "attributes" "attributes" 3 "FigureWithID" "Int" 1555 "FrameColor" "Color" 0 0 0 255 "FillColor" "Color" 112 219 147 255 152 64 20 20 NULL  
+        de.renew.gui.TransitionFigure "attributes" "attributes" 3 "FigureWithID" "Int" 1556 "FrameColor" "Color" 0 0 0 255 "FillColor" "Color" 112 219 147 255 244 66 24 16 NULL  
+        de.renew.gui.CPNTextFigure "attributes" "attributes" 4 "TextAlignment" "Int" 1 "FigureWithID" "Int" 1557 "FrameColor" "Color" 255 199 158 255 "FillColor" "Color" 255 199 158 255 67 67 "b" "SansSerif" 1 12 0 REF 1 
+            CH.ifa.draw.standard.OffsetLocator 0 0 
+                CH.ifa.draw.standard.RelativeLocator 0.5 0.5   2  
+        de.renew.gui.CPNTextFigure "attributes" "attributes" 4 "TextAlignment" "Int" 1 "FigureWithID" "Int" 1558 "FrameColor" "Color" 255 199 158 255 "FillColor" "Color" 255 199 158 255 253 67 "c" "SansSerif" 1 12 0 REF 3 
+            CH.ifa.draw.standard.OffsetLocator 0 0 
+                CH.ifa.draw.standard.RelativeLocator 0.5 0.5   2  
+        de.renew.gui.ArcConnection "attributes" "attributes" 1 "FigureWithID" "Int" 1559 2 83 74 153 74 NULL 
+            CH.ifa.draw.figures.ArrowTip 0.4 8.0 8.0 1  "CH.ifa.draw.figures.ArrowTip" 
+            CH.ifa.draw.standard.ChopBoxConnector REF 1  
+            CH.ifa.draw.figures.ChopEllipseConnector REF 2   
+        de.renew.gui.ArcConnection "attributes" "attributes" 1 "FigureWithID" "Int" 1560 2 172 74 244 74 NULL 
+            CH.ifa.draw.figures.ArrowTip 0.4 8.0 8.0 1  "CH.ifa.draw.figures.ArrowTip" 
+            CH.ifa.draw.figures.ChopEllipseConnector REF 2  
+            CH.ifa.draw.standard.ChopBoxConnector REF 3   
+        de.renew.gui.CPNTextFigure "attributes" "attributes" 4 "TextAlignment" "Int" 1 "FigureWithID" "Int" 1561 "FrameColor" "Color" 255 199 158 255 "FillColor" "Color" 255 199 158 255 154 47 "p3" "SansSerif" 1 12 0 REF 2 
+            CH.ifa.draw.standard.OffsetLocator 0 -20 
+                CH.ifa.draw.standard.RelativeLocator 0.5 0.5   2  
+        CH.ifa.draw.figures.TextFigure "attributes" "attributes" 4 "TextAlignment" "Int" 0 "FigureWithID" "Int" 1562 "FrameColor" "Color" 255 199 158 255 "FillColor" "Color" 255 199 158 255 27 121 "Felgenhauer\nHildebrandt\nReichenbach\n\nMontag + 14:15 Uhr + G-203" "SansSerif" 0 12 0 NULL NULL  NULL  141 277 335 310 

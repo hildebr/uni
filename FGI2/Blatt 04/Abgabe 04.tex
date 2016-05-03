@@ -1,0 +1,223 @@
+\documentclass[12pt,a4paper]{../krautsourcing/homework}
+\usepackage[utf8]{inputenc}
+\usepackage[ngerman]{babel}
+\usepackage[T1]{fontenc}
+\usepackage{amsmath}
+\usepackage{graphicx}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+\usepackage{lmodern}
+\usepackage{paralist}
+\usepackage{tabularx}
+\usepackage{tikz}
+\usetikzlibrary{calc}
+\usepackage{amstext}
+\usepackage{array}
+\usepackage{mathtools}
+
+\author{Ruben Felgenhauer,\\Alexander Hildebrandt,\\Leonhard Reichenbach}
+\datef{08}{11}{2015}
+%\date{\today}
+\course{Formale Grundlagen der Informatik II}
+\sheet{4}
+\sectionprefix{Übungsaufgabe \thesheet.}
+\subsectionprefix{\thesheet.}
+\subsubsectioncounter{\alph{subsubsection}}
+\group{06}
+\subsubsectionprefix{(}
+\subsubsectionsuffix{)}
+
+\newcommand{\TScell}{TS_\textit{cell}}
+\newcommand{\Mcell}{M_\textit{cell}}
+\newcommand{\eLocked}{\textit{Locked}}
+\newcommand{\eBattery}{\textit{Battery}}
+\newcommand{\eOn}{\textit{On}}
+\newcommand{\eActive}{\textit{Active}}
+\newcommand{\eError}{\textit{Error}}
+\newcommand{\nmodels}{\not\models}
+
+%% <ltl-kram>
+%% <here be dragons>
+\newcommand{\DeclareTLOperator}[2]{%
+	\DeclareMathOperator{#1}{%
+%% </here be dragons>
+%% <tweaking area>
+			\newcommand{\width}{8pt} % Breite und Höhe
+			\newcommand{\tlraise}{-0.45pt} % Grundlinienversatz
+			\newcommand{\preindent}{-2mu} % Einzug vor dem OP
+			\newcommand{\postindent}{-4mu} % Einzug nach dem OP
+			\tikzset{ % Styleset für die \draw-Funktion
+				tlstyle/.style={
+					line width=0.5pt
+				}
+			}
+%% </tweaking area>		
+%% <here be dragons>
+			\mspace{\preindent}\raisebox{\tlraise}{%
+				\tikz{%
+					\coordinate (tl) at (0.00,   \width);
+					\coordinate (tr) at (\width, \width);
+					\coordinate (br) at (\width, 0.00);
+					\coordinate (bl) at (0.00,   0.00);
+					\coordinate (t)  at ($(tl)!0.5!(tr)$); 
+					\coordinate (r)  at ($(tr)!0.5!(br)$);
+					\coordinate (b)  at ($(bl)!0.5!(br)$);
+					\coordinate (l)  at ($(tl)!0.5!(bl)$);
+					\draw[tlstyle] #2 --cycle;
+				}
+			}\mspace{\postindent}
+	}
+}
+\DeclareTLOperator{\tlG}{%
+	(tl) to[out=0,   in=180] (tr)
+		 to[out=270, in=90]  (br)
+		 to[out=180, in=0]   (bl)
+		 to[out=90,  in=270] (tl)
+}
+\DeclareTLOperator{\tlF}{%
+	(t)  to[out=315, in=135] (r)
+		 to[out=225, in=45]  (b)
+		 to[out=135, in=315] (l)
+		 to[out=45,  in=225] (t)
+}
+\DeclareTLOperator{\tlX}{%
+	(t)	 to[out=0,   in=90]  (r)
+		 to[out=270, in=0]   (b)
+		 to[out=180, in=270] (l)
+		 to[out=90,  in=180] (t)
+}
+%% </here be dragons>
+%% </ltl-kram>
+
+\begin{document}
+
+\makeheadline
+
+\addtocounter{section}{2}
+
+\section{}
+
+\subsection{}
+
+\begin{align*}
+	L(\TScell) &= (ou((lu)^* + (c t^* h))^* \cdot (f + c t^* e o^* r s))^*
+	\\
+	L^\omega(\TScell) &= (ou((lu)^* + (c t^* h))^* \cdot (f + c t^* e o^* r s))^\omega
+\end{align*}
+
+\subsection{}
+
+\begin{align*}
+	SS(\Mcell) &= 0(12((12)+(3^+2))^* \cdot (0 + 3^+4^+50))^\omega
+\end{align*}
+
+\subsection{}
+
+\begin{align*}
+	ES(c_0) =&\ \{\eLocked,\eBattery\}\\
+	ES(c_1) =&\ \{\eLocked,\eBattery,\eOn\}\\
+	ES(c_2) =&\ \{\eBattery,\eOn\}\\
+	ES(c_3) =&\ \{\eBattery,\eOn,\eActive\}\\
+	ES(c_4) =&\ \{\eLocked,\eBattery,\eError\}\\
+	ES(c_5) =&\ \{\eLocked\}\\
+	ES(SS(\Mcell)) =&\ ES(c_0)(ES(c_1)ES(c_2)((ES(c_1)ES(c_2))+\\&\ (ES(c_3)^+ES(c_2)))^* \cdot (ES(c_0) + ES(c_3)^+ES(c_4)^+ES(c_5)ES(c_0)))^\omega
+\end{align*}
+
+\subsection{}
+
+\begin{align*}
+	Sat(\eError) &= \{c_4\}
+	\\ Sat(\lnot \eBattery) &= \{c_5\}
+	\\ Sat(\eOn) &= \{c_1,c_2,c_3\}
+\end{align*}
+Immer, wenn ein Fehler auftritt, gilt, dass wenn man im nächsten Schritt die Batterie entfernt, dass das Telefon dann zukünftig wieder an sein wird.\\
+\begin{tabularx}{\linewidth}{@{}>{\bfseries}l@{\hspace{.5em}}X@{}}
+Behauptung: &
+Die Formel \(f\) gilt in \(c_0\).\\
+Beweis: & Einen Error erreicht man von \(c_0\) nur, indem man über \(c_1\) \(c_2\) und 
+\(c_3\) nach \(c_4\) übergeht. In \(c_4\) kann der nächste Schritt auf \(c_5\) gehen. In diesem Fall gilt nun \(\lnot \eBattery\). Von \(c_5\) kann man nur nach \(c_0\) übergehen, von da aus nur nach \(c_1\). In \(c_1\) gilt wieder \(On\).
+\end{tabularx}
+
+\subsection{}
+
+\begin{tabularx}{\linewidth}{@{}>{\bfseries}l@{\hspace{.5em}}X@{}}
+Behauptung: &
+Die Formel \(g\) gilt in \(c_0\).\\
+Beweis: & Einen Error erreicht man von \(c_0\) nur, indem man über \(c_1\) \(c_2\) und \(c_3\) nach \(c_4\) übergeht. In \(c_4\) kann der nächste Schritt auf \(c_5\) gehen, von \(c_5\) nur nach \(c_0\), von da aus nur nach \(c_1\), von  und von da aus nur nach \(c_2\). Hier existiert nun ein Weg nach \(c_3\), in dem \(\eActive\) gilt.
+\end{tabularx}
+Ein Pfad \(\pi\) lautet beispielsweise:
+\begin{align*}
+	\pi = c_0 c_1 c_2 c_3 c_4 c_5 c_0 c_1 c_2 c_3
+\end{align*}
+
+\section{}
+
+\subsection{}
+
+\renewcommand{\arraystretch}{1.2} 
+\centerline{\begin{tabular}{|c|>{\(}c<{\)}|c|c|}
+\hline
+\# & f & \(\Mcell \models f\) & \(\Mcell,\pi \models f\) \\
+\hline
+1 & \tlG(\eActive)
+& Falsch & Falsch \\
+2 & \tlG\tlF(\eActive)
+& Falsch & Wahr \\
+3 & \tlG(\tlX \eActive \Rightarrow \eOn)
+& Wahr & Wahr \\
+4 & \tlG\tlF(\eActive \Rightarrow \tlX\tlX \lnot \eOn)
+& Wahr & Wahr \\
+5 & \tlG\tlF(\lnot \eBattery \lor \eActive \lor \lnot \eOn \lor \eError)
+& Falsch & Wahr \\
+6 & \tlX\tlX\tlX \eActive
+& Wahr & Wahr \\
+\hline
+\end{tabular}}
+\vspace{5mm}
+\begin{enumerate}
+\item
+\(\Mcell \nmodels \tlG(\eActive)\), denn bereits im Startzustand \(c_0\) \(\lnot \eActive\) gilt.
+\\
+\(\Mcell, \pi \nmodels \tlG(\eActive)\) aus dem gleichen Grund.
+\item
+\(\Mcell \nmodels \tlG\tlF(\eActive)\), da mit den Pfad \(\pi' \coloneqq (c_0 c_1 c_2 )^\omega\) gilt \(\Mcell, \pi' \models \tlG(\lnot \eActive)\).
+\\
+\(\Mcell, \pi \models \tlG\tlF(\eActive)\), da in \(c_3\) stets \(\eActive\) gilt.
+\item
+\(\Mcell \models \tlG(\tlX \eActive \Rightarrow \eOn)\), da \(\eActive\) nur in \(c_3\) gilt, und in den vorangehenden Zuständen \(c_2\) und \(c_3\) \(\eOn\) gilt. Außerdem wird der geklammerte Audruck immer wahr, falls \((\tlX\lnot\eActive)\) gilt.
+\\
+\(\Mcell, \pi \models \tlG(\tlX \eActive \Rightarrow \eOn)\) aus dem gleichen Grund.
+\item \(\Mcell \models \tlG\tlF(\eActive \Rightarrow \tlX\tlX \lnot \eOn)\), da \((\eActive \Rightarrow \tlX\tlX \lnot \eOn)\) immer wahr wird, wenn \(\lnot \eActive\) gilt. Da dies schon in \(c_0\) der Fall ist, gilt die Aussage auf allen Pfaden.
+\\
+\(\Mcell, \pi \models \tlG\tlF(\eActive \Rightarrow \tlX\tlX \lnot \eOn)\) aus dem gleichen Grund.
+\item
+\(\Mcell \nmodels \tlG\tlF(\lnot \eBattery \lor \eActive \lor \lnot \eOn \lor \eError)\), da für \(\pi' \coloneqq (c_0 (c_1 c_2)^\omega)\) nach dem Startzustand nie wieder \((\lnot \eBattery \lor \eActive \lor \lnot \eOn \lor \eError)\) gilt.
+\\
+\(\Mcell,\pi \models \tlG\tlF(\lnot \eBattery \lor \eActive \lor \lnot \eOn \lor \eError)\), da hier \(c_0\) immer wieder durchlaufen wird und hier \((\lnot \eBattery \lor \eActive \lor \lnot \eOn \lor \eError)\) gilt.
+\item
+\(\Mcell \nmodels \tlX\tlX\tlX \eActive\), da mit \(\pi' \coloneqq (c_0c_1c_2)^\omega\) niemals \(\eActive\) gilt.
+\\
+\(\Mcell, \pi \models \tlX\tlX\tlX \eActive\), da von \(c_0\) aus startend drei Schritte weiter \(c_3\) folgt, und hier \(\eActive\) gilt.
+\end{enumerate}
+
+\subsection{}
+
+\subsubsection{}
+
+\(\tlG (\lnot \eBattery \Rightarrow \lnot \eOn) \rightarrow True\)
+
+\subsubsection{}
+
+\(\tlG \tlF (\eOn) \rightarrow True \)
+
+\subsubsection{}
+
+%$\tlG (\eError \Rightarrow (\eActive \Rightarrow XError)) \rightarrow True $
+
+\(\tlG (\tlX \eError \Rightarrow \eActive) \rightarrow True\)
+
+\subsubsection{}
+
+\(\tlG (\eOn \lor \eError \lor \tlX \eOn) \rightarrow \text{ Gegenbeispiel: } c_5\)
+
+\end{document}

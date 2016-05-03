@@ -1,0 +1,318 @@
+\documentclass[12pt,a4paper]{../krautsourcing/homework}
+\usepackage[utf8]{inputenc}
+\usepackage[ngerman]{babel}
+\usepackage[T1]{fontenc}
+\usepackage{amsmath}
+\usepackage{graphicx}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+\usepackage{lmodern}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{paralist}
+\usepackage{tabularx}
+\usepackage{tikz}
+\usetikzlibrary{automata,positioning}
+
+\author{Ruben Felgenhauer,\\Alexander Hildebrandt,\\Leonhard Reichenbach}
+\datef{18}{10}{2015}
+\course{Formale Grundlagen der Informatik II}
+\sheet{2}
+\sectionprefix{Übungsaufgabe \thesheet.}
+\subsectionprefix{\thesheet.}
+\subsubsectioncounter{\alph{subsubsection}}
+\group{06}
+\subsubsectionprefix{(}
+\subsubsectionsuffix{)}
+
+\begin{document}
+
+\makeheadline
+
+\addtocounter{section}{2}
+
+\section{}
+
+\subsection{}
+\begin{align*}
+L(A_n) = &\left((ab)^0d(ba)^0 + \ldots + (ab)^{\frac{n}{2}}d(ba)^{\frac{n}{2}}\right)  \\
++ &\left((ab)^0ada(ba)^0 + \ldots + (ab)^{\frac{n}{2}-1}ada(ba)^{\frac{n}{2}-1}\right)\\
++ &\left( ab \right)^{\frac{n}{2}}
+\end{align*}
+
+\subsection{}
+\begin{align*}
+L(A_n) = & \{ab\}^0\cdot\{d\}\cdot\{ba\}^0 \cup \ldots \cup \{ab\}^{\frac{n}{2}}\cdot\{d\}\cdot\{ba\}^{\frac{n}{2}}  \\
+ \cup &\{ab\}^0\cdot\{ada\}\cdot\{ba\}^0 \cup \ldots \cup \{ab\}^{\frac{n}{2}-1}\cdot\{ada\}\cdot\{ba\}^{\frac{n}{2}-1}\\
+\cup & \{ab\} ^{\frac{n}{2}}
+\end{align*}
+
+\subsection{}
+\begin{align*}
+Z.zg.: L(A_n) = & \{ab\}^0\cdot\{d\}\cdot\{ba\}^0 \cup \ldots \cup \{ab\}^{\frac{n}{2}}\cdot\{d\}\cdot\{ba\}^{\frac{n}{2}}  \\
+ \cup &\{ab\}^0\cdot\{ada\}\cdot\{ba\}^0 \cup \ldots \cup \{ab\}^{\frac{n}{2}-1}\cdot\{ada\}\cdot\{ba\}^{\frac{n}{2}-1}\\
+\cup & \{ab\} ^{\frac{n}{2}}
+\end{align*}
+Diesen Block nennen wir im folgenden der Übersicht halber \(M(A_n)\)\\
+\(\)
+
+\begin{tabularx}{\linewidth}{@{}>{\bfseries}l@{\hspace{.5em}}X@{}}
+    \(\glqq\Rightarrow\grqq:\) &
+    Sei \(w \in L(A_n) \).
+
+    Dann wird \(w\) von \(A_n\) akzeptiert. \(A_n\) hat zwei Endzustände \(Z_1\) und \(Z_{2n}\). Nun gibt es drei Möglichkeiten welche Form \(w\) haben kann.
+    
+    Form 1:
+    
+    Um den Endzustand \(Z_{2n}\) zu erreichen muss \(w\) aus \(\frac{n}{2}\) vielen Aneinanderreihungen von \(ab\) bestehen. Also \(w = \{ab\}^{\frac{n}{2}} \) und damit auch \(w \in M(A_n)\).
+    
+    Form 2:
+    
+    Um den Endzustand \(Z_1\) zu erreichen gibt es zwei Möglichkeiten, hier die erste. Der direkte Weg zu \(Z_1\) ist immer über \(w=d\) vorhanden, für \(n \geq 2 \) kommt nun die Möglichkeit hinzu im Automaten einen Bogen zu \glqq laufen\grqq . Das funktioniert wie folgt: zuerst liest man bis zu \(\frac{n}{2}\) viele \(ab\), dann ein \(d\) um nach \glqq unten\grqq {} zu kommen und anschließend liest man \(\frac{n}{2}\) viele \(ba\) um in \(Z_1\) zu landen. \(w\) kann also alle Formen zwischen \(\{ab\}^0 \cdot \{d\} \cdot\{ba\}^0 \) und \(\{ab\}^{\frac{n}{2}} \cdot \{d\} \cdot\{ba\}^{\frac{n}{2}} \) annehmen. Auch hier gilt \(w \in M(A_n)\).
+    
+    Form 3:
+    
+    Funktioniert analog zu Form 2: zuerst liest man bis zu \(\frac{n}{2}-1\) viele \(ab\), dann noch ein \(a\), dann \(d\) um nach \glqq unten\grqq {} zu kommen und anschließend liest man noch ein \(a\) und \(\frac{n}{2}-1\) viele \(ba\) um in \(Z_1\) zu landen. \(w\) kann also alle Formen zwischen \(\{ab\}^0 \cdot \{ada\} \cdot\{ba\}^0 \) und \(\{ab\}^{\frac{n}{2}-1} \cdot \{ada\} \cdot\{ba\}^{\frac{n}{2}-1} \) annehmen. Auch hier gilt wieder \(w \in M(A_n)\).
+
+    Also ist \(w \in M(A_n)\) und \(L(A_n) \subseteq M(A_n)\).
+
+     \\
+
+    \(\glqq\Leftarrow\grqq:\) &
+    Sei \(w \in M(A_n)\).
+
+    Wir unterteilen \(w\) in drei Fälle.
+    
+    Fall 1:
+    
+    \(w = \{ab\}^{\frac{n}{2}}\)
+    
+    Daraus ergibt sich folgende Kantenrelation:
+    
+    \( 
+    \delta (Z_0, \quad \{ab\}^{\frac{n}{2}} ) \mapsto 
+    \delta (Z_2, \quad \{b\}\cdot \{ab\}^{\frac{n}{2}-1} ) \mapsto
+    \delta (Z_4, \quad \{ab\}^{\frac{n}{2}-1} ) \mapsto
+    \ldots \mapsto 
+    \delta (Z_{2n}, \lambda) 
+    \)
+
+    D.h. bei Eingaben dieser Form landet der Automat immer in \(Z_{2n}\). Dies ist ein Endzustand.
+    
+    Fall 2:
+    
+    \(w \in \{ab\}^0\cdot\{d\}\cdot\{ba\}^0 \cup \ldots \cup \{ab\}^{\frac{n}{2}}\cdot\{d\}\cdot\{ba\}^{\frac{n}{2}} \)
+    
+    Dann hat \(w\) die Form \(w = u\cdot \{d\} \cdot v \mid u = \{ab\}^x \text{ und } v = \{ba\}^x \text{ wobei } x \in (0, \frac{n}{2}) \)
+    
+    Daraus ergibt sich folgende Kantenrelation:
+    
+    \(
+    \delta (Z_0, \quad u \cdot \{d\} \cdot v) \mapsto
+    \ldots \mapsto
+    \delta (Z_{4x}, \quad \{d\} \cdot v) \mapsto
+    \delta (Z_{4x+1}, \quad v) \mapsto
+    \ldots \mapsto
+    \delta (Z_1, \lambda)
+    \)    
+    
+    D.h. bei Eingaben dieser Form landet der Automat immer in \(Z_1\). Dies ist ein Endzustand.
+    
+    Fall 3:
+    
+    \(w \in \{ab\}^0\cdot\{ada\}\cdot\{ba\}^0 \cup \ldots \cup \{ab\}^{\frac{n}{2}-1}\cdot\{ada\}\cdot\{ba\}^{\frac{n}{2}-1} \)
+    
+    Dann hat \(w\) die Form \(w = u\cdot \{ada\} \cdot v \mid u = \{ab\}^x \text{ und } v = \{ba\}^x \text{ wobei } x \in (0, \frac{n}{2}-1) \)
+    
+    Daraus ergibt sich folgende Kantenrelation:
+    
+    \(
+    \delta (Z_0, \quad u \cdot \{ada\} \cdot v) \mapsto
+    \ldots \mapsto
+    \delta (Z_{4x}, \quad \{ada\} \cdot v) \mapsto
+    \delta (Z_{4x+2}, \quad \{da\} \cdot v) \mapsto
+    \delta (Z_{4x+3}, \quad \{a\} \cdot v) \mapsto
+    \delta (Z_{4x+1}, \quad v) \mapsto
+    \ldots \mapsto
+    \delta (Z_1, \lambda)
+    \)    
+    
+    D.h. auch bei Eingaben dieser Form landet der Automat immer in \(Z_1\). Dies ist ein Endzustand.
+
+	Also ist \(w \in L(A_n)\) und \(M(A_n) \subseteq L(A_n)\).	  
+\end{tabularx}
+
+\hfill \(\square\)
+
+
+\subsection{}
+Die Sprache \(L(A_n)\) ist regulär, da sie als regulärer Ausdruck geschrieben werden kann.\\ Siehe 1.3.1
+
+%\subsection{} keine Lust mehr auf Zusatz..
+
+\section{}
+
+\subsection{}
+
+\begin{compactenum}
+\item Die Menge der Start- und Endzustände wird vertauscht bzw.
+\(Q'_0 := F \text{ und } F' := \lbrace q_0 \rbrace\)
+\item Alle Kanten werden umgekehrt bzw. \( \delta' := \lbrace (p,w,q) \mid (q,w,p) \in \delta \rbrace \)
+%bzw. \( \forall (q, w, p) \in \delta : \exists  (p, w, q) \in \delta' \) \\
+\item Aus dem nun entstandenen NFA wird mittels Potenzautomatenkonstruktion ein DFA erstellt.
+\item Der entstandene DFA wird ggf. vollständig gemacht.
+\end{compactenum}
+
+
+
+\subsection{}
+Z.zg.: \(L(A) = \Sigma^* \cdot \{reed\} \cdot \Sigma^* \mid \Sigma = \lbrace r,e,d \rbrace \) \\
+\(\)
+
+\begin{tabularx}{\linewidth}{@{}>{\bfseries}l@{\hspace{.5em}}X@{}}
+    \(\glqq\Rightarrow\grqq:\) &
+    Sei \(w \in L(A) \).
+
+    Dann wird \(w\) von \(A\) akzeptiert. Dazu muss \(w\) in \(q_4\) enden, da dies der einzige Endzustand ist. Am Anfang ist der Automat in \(q_0\). Um zu \(q_4\) zu gelangen, muss man durch die restlichen drei Zustände gehen. Die einzige Zeichenkette, die Richtung \(q_4\) führt ist \(reed\). Falls dieses Wort mit anderen Buchstaben unterbrochen wird, geht man zurück in Richtung \(q_0\). Sobald man in \(q_4\) angekommen ist, kann man alle Zeichen in $\Sigma$ lesen und bleibt im Endzustand. D.h. \(w\) hat die Form  \( u \cdot reed \cdot v \mid u,v \in \Sigma^*\).
+
+    Also ist \(w \in \Sigma^* \cdot \{reed\} \cdot \Sigma^* \) und \(L(A') \subseteq\Sigma^* \cdot \{reed\} \cdot \Sigma^*\).
+
+     \\
+
+    \(\glqq\Leftarrow\grqq:\) &
+    Sei \(w \in \Sigma^* \cdot \{reed\} \cdot \Sigma^*\).
+
+    Dann gilt \(w = x_1 \cdot x_2 \cdot x_3 \mid x_1,x_3 \in \Sigma^* \quad \text{und} \quad x2 = reed \).
+    
+    Daraus ergibt sich folgende Kantenrelation:
+    
+    \( 
+    \delta (q_0, \quad x_1 \cdot x_2 \cdot x_3) \mapsto 
+    \delta (\{q_0,q_1,q_2,q_3,q_4 \}, \quad x_2 \cdot x_3) \mapsto
+    \delta (q_4, \quad x_3) \mapsto 
+    \delta (q_4, \lambda) 
+    \)
+
+    D.h. bei Eingaben dieser Form landet der Automat immer in \(q_4\). \(q_4\) ist ein Endzustand.
+
+	Also ist \(w \in L(A)\) und \(\Sigma^* \cdot \{reed\} \cdot \Sigma^* \subseteq L(A')\).	  
+\end{tabularx}
+
+\hfill \(\square\)
+
+\subsection{}
+Der reguläre Ausdruck zu \(\Sigma^* \cdot \{reed\} \cdot \Sigma^*\) lautet \(\Sigma^* \cdot reed \cdot \Sigma^*\).
+
+\subsection{}
+\begin{compactenum}
+\item Der Ursprüngliche Automat: \\
+\begin{tikzpicture}[node distance=3cm,on grid,auto]
+	\node[state,initial,initial text={}] (q0)               {\(q_0\)};
+	\node[state]                         (q1) [right of=q0] {\(q_1\)};
+	\node[state]                         (q2) [right of=q1] {\(q_2\)};
+	\node[state]                         (q3) [right of=q2] {\(q_3\)};
+	\node[state,accepting]               (q4) [right of=q3] {\(q_4\)};
+	\path[->]
+		(q0) edge [loop above] node [above] {\(d,e\)}   ()
+		(q0) edge [bend left]  node [above] {\(r\)}     (q1)
+		(q1) edge [loop above] node [above] {\(r\)}     ()
+		(q1) edge [bend left]  node [below] {\(d\)}     (q0)		
+		(q1) edge [bend left]  node [above] {\(e\)}     (q2)
+		(q2) edge [bend left]  node [below] {\(r\)}     (q1)
+		(q2) edge              node [above] {\(e\)}     (q3)
+		(q3) edge              node [above] {\(d\)}     (q4)
+		(q4) edge [loop above] node [above] {\(r,e,d\)} ()
+	; %-path-%
+	\draw[->](q3) to[out=120,  in=60,  edge node={node [above] {\(r\)}}] (q1);
+    \draw[->](q2) to[out=-120, in=-60, edge node={node [below] {\(d\)}}] (q0);
+	\draw[->](q3) to[out=-90,  in=-90, edge node={node [below] {\(e\)}}] (q0);
+\end{tikzpicture}
+
+
+
+\item Kanten umkehren: \\
+\begin{tikzpicture}[node distance=3cm,on grid,auto]
+	\node[state,accepting]                                   (q0)               {\(q_0\)};
+	\node[state]                                             (q1) [right of=q0] {\(q_1\)};
+	\node[state]                                             (q2) [right of=q1] {\(q_2\)};
+	\node[state]                                             (q3) [right of=q2] {\(q_3\)};
+	\node[state,initial,initial text={},initial where=right] (q4) [right of=q3] {\(q_4\)};
+	\path[->]
+		(q0) edge [loop above] node [above] {\(d,e\)}   ()		
+		(q1) edge [bend right] node [above] {\(r\)}     (q0)
+		(q1) edge [loop above] node [above] {\(r\)}     ()
+		(q0) edge [bend right] node [below] {\(d\)}     (q1)
+		(q2) edge [bend right] node [above] {\(e\)}     (q1)		
+		(q1) edge [bend right] node [below] {\(r\)}     (q2)						
+		(q3) edge              node [above] {\(e\)}     (q2)
+		(q4) edge              node [above] {\(d\)}     (q3)
+		(q4) edge [loop above] node [above] {\(r,e,d\)} ()
+	; %-path-%
+	\draw[->](q1) to[out=60,  in=120,  edge node={node [above] {\(r\)}}] (q3);
+	\draw[->](q0) to[out=-60, in=-120, edge node={node [below] {\(d\)}}] (q2);
+	\draw[->](q0) to[out=-90, in=-90,  edge node={node [below] {\(e\)}}] (q3);
+\end{tikzpicture}
+
+\newpage
+
+\item Potenzautomaten konstruieren:\\
+A': \\
+\begin{tikzpicture}[node distance=3cm,on grid,auto]
+	\node[state,accepting]                                   (q0q1q2q3q4)                       {\(\lbrace q_0,q_1,q_2,q_3,q_4\rbrace\)};
+	\node[state]                                             (q1q4)       [right of=q0q1q2q3q4] {\(\lbrace q_1,q_4\rbrace\)};
+	\node[state]                                             (q2q4)       [right of=q1q4]       {\(\lbrace q_2,q_4\rbrace\)};
+	\node[state]                                             (q3q4)       [right of=q2q4]       {\(\lbrace q_3,q_4\rbrace\)};
+	\node[state,initial,initial text={},initial where=right] (q4)         [right of=q3q4]       {\(\lbrace q_4\rbrace\)};
+	\path[->]
+		(q0q1q2q3q4) edge [loop above] node [above] {\(r,e,d\)} ()
+		(q1q4)       edge              node [above] {\(r\)}     (q0q1q2q3q4)
+		(q2q4)       edge              node [above] {\(e\)}     (q1q4)
+		(q3q4)       edge              node [above] {\(e\)}     (q2q4)
+		(q3q4)       edge [bend right] node [below] {\(r,d\)}   (q4)
+		(q4)         edge [loop above] node [above] {\(r,e\)}   ()	
+		(q4)         edge [bend right] node [above] {\(d\)}     (q3q4)
+	; %-path-%	
+	\draw[->] (q2q4) to[out=60,  in=120,  edge node={node [below] {\(r,d\)}}] (q4);
+	\draw[->] (q1q4) to[out=-60, in=-120, edge node={node [above] {\(e,d\)}}] (q4);
+\end{tikzpicture}
+\item Vollständig machen: Der Automat ist bereits vollständig!
+\end{compactenum}
+
+
+\subsection{}
+
+Z.zg.: \(L(A') = \lbrace w^{rev} \mid w \in L(A) \rbrace = \lbrace w^{rev} \mid w \in \Sigma^* \cdot \{reed\} \cdot \Sigma^* \rbrace = \Sigma^* \cdot \{deer\} \cdot \Sigma^* \) \\
+\(\)
+
+\begin{tabularx}{\linewidth}{@{}>{\bfseries}l@{\hspace{.5em}}X@{}}
+    \(\glqq\Rightarrow\grqq:\) &
+    Sei \(w \in L(A') \).
+
+    Dann wird \(w\) von \(A\) akzeptiert. Dazu muss \(w\) in \(q_0\) enden, da dies der einzige Endzustand ist. Am Anfang ist der Automat in \(q_4\). Um zu \(q_0\) zu gelangen, muss man durch die restlichen drei Zustände gehen. Die einzige Zeichenkette, die Richtung \(q_0\) führt ist \(deer\). Falls dieses Wort mit anderen Buchstaben unterbrochen wird, geht man zurück in Richtung \(q_4\). Sobald man in \(q_0\) angekommen ist, kann man alle Zeichen in $\Sigma$ lesen und bleibt im Endzustand. D.h. \(w\) hat die Form  \( u \cdot deer \cdot v \mid u,v \in \Sigma^*\)
+
+    Also ist \(w \in \Sigma^* \cdot \{deer\} \cdot \Sigma^* \) und \(L(A') \subseteq \lbrace w^{rev} \mid w \in L(A) \rbrace\).
+
+     \\
+
+    \(\glqq\Leftarrow\grqq:\) &
+    Sei \(w \in \Sigma^* \cdot \{deer\} \cdot \Sigma^*\).
+
+    Dann gilt \(w = x_1 \cdot x_2 \cdot x_3 \mid x_1,x_3 \in \Sigma^* \quad \textrm{und} \quad x_2 = deer \).
+    
+    Daraus ergibt sich folgende Kantenrelation:
+    
+    \( 
+    \delta (q_4, \quad x_1 \cdot x_2 \cdot x_3) \mapsto 
+    \delta (\{q_0,q_1,q_2,q_3,q_4 \}, \quad x_2 \cdot x_3) \mapsto
+    \delta (q_0, \quad x_3) \mapsto 
+    \delta (q_0, \lambda) 
+    \)
+
+    D.h. bei Eingaben dieser Form landet der Automat immer in  \(q_0\). \(q_0\) ist ein Endzustand.
+
+	Also ist \(w \in L(A')\) und \(\lbrace w^{rev} \mid w \in L(A) \rbrace \subseteq L(A')\).	  
+\end{tabularx}
+
+\hfill \(\square\)
+
+\end{document}

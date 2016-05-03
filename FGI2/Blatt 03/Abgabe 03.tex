@@ -1,0 +1,273 @@
+\documentclass[12pt,a4paper]{../krautsourcing/homework}
+\usepackage[utf8]{inputenc}
+\usepackage[ngerman]{babel}
+\usepackage[T1]{fontenc}
+\usepackage{amsmath}
+\usepackage{graphicx}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+\usepackage{lmodern}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{paralist}
+\usepackage{tabularx}
+\usepackage{tikz}
+\usepackage{array}
+\usepackage{graphicx}
+\usepackage{mathtools}
+\usetikzlibrary{automata,positioning,calc}
+
+\author{Ruben Felgenhauer,\\Alexander Hildebrandt,\\Leonhard Reichenbach}
+\datef{01}{11}{2015}
+%\date{\today}
+\course{Formale Grundlagen der Informatik II}
+\sheet{3}
+\sectionprefix{Übungsaufgabe \thesheet.}
+\subsectionprefix{\thesheet.}
+\subsubsectioncounter{\alph{subsubsection}}
+\group{06}
+\subsubsectionprefix{(}
+\subsubsectionsuffix{)}
+
+\usepackage{calc}
+\usepackage{printlen}
+
+\newcommand{\qed}{\hfill\square}
+\newcommand{\eqlen}{\widthof{=}}
+\newcommand{\bisim}{%
+	\mathrel{%
+		\raisebox{-2.5pt}{\resizebox{\eqlen*\real{1.05}}{!}{\(-\)}}
+		\hspace{-9.6pt}
+		\raisebox{2.4pt}{\resizebox{\eqlen*\real{1.05}}{!}{\(\leftrightarrow\)}}
+	}
+}
+
+\begin{document}
+
+\makeheadline
+
+\addtocounter{section}{2}
+
+\section{}
+
+\subsection{}
+\begin{align*}
+L(A_1) &= a^* + bc(dc)^* \\
+L(A_2) &= (a+b+d)\left((a+c)(a+b+d)\right)^*\\
+L^\omega(A_1) &= a^\omega + b(cd)^\omega\\
+L^\omega(A_2) &= ((a+b+d)(a+c))^\omega
+\end{align*}
+
+\subsection{}
+
+\centerline{\includegraphics[scale=0.6]{{A3-3.3.2}.pdf}}
+
+\subsection{}
+
+\begin{align*}
+L(A_3) &= a(aa)^* \\
+L^\omega(A_3) &= a^\omega\\
+L(A_1) \cap L(A_2) &= a(aa)^* &&= L(A_3) \\
+L^\omega(A_1) \cap L^\omega(A_2) &= a^\omega + b(cd)^\omega &&\neq L^\omega(A_3)\\
+\end{align*}
+
+\subsection{}
+
+\centerline{\includegraphics[scale=0.6]{{A4-3.3.4}.pdf}}
+
+\subsection{}
+
+\begin{align*}
+	L(A_4) &= (aa)^* + (bc) \cdot (dc)^*
+	\\
+	L^\omega(A_4) &= a^\omega + b (cd)^\omega
+	\\
+	L(A_1) \cap L(A_2) &= a(aa)^* &&\neq L(A_4)\\
+	L^\omega(A_1) \cap L^\omega(A_2) &= a^\omega + b(cd)^\omega &&=L^\omega(A_4)
+\end{align*}
+
+\section{}
+
+\subsection{}
+
+\begin{tikzpicture}[node distance=2cm,auto,baseline]
+	\node                                (ts1)                   {\(TS_1:\)};
+	\node[state,initial,initial text={}] (q0)  [right of=ts1]    {\(q_0\)};
+	\node[state,accepting]               (q1)  [right of=q0]     {\(q_1\)};
+	\node                                (ts2) [below of=ts1]    {\(TS_2:\)};
+	\node[state,initial,initial text={}] (r0)  [right of=ts2]    {\(r_0\)};
+	\node[state,accepting]               (r1)  [right of=r0]     {\(r_1\)};
+	\node[state]                         (r2)  [right of=r1]     {\(r_2\)};
+	\node[state,accepting]               (r3)  [right of=r2]     {\(r_3\)};
+	\node[state]                         (r4)  [right of=r3]     {\(r_4\)};
+	\node                                (?0)  [right of=r4]     {};
+	\node                                (?1)  [above=2.5cm of r2] {};
+	\node                                (?2)  [above=3.5cm of r1] {};
+	\path[->]
+		(q0) edge [bend left] node [above] {\(a\)} (q1)
+		(q1) edge [bend left] node [below] {\(b\)} (q0)
+		(r0) edge             node [below] {\(a\)} (r1)
+		(r1) edge             node [below] {\(b\)} (r2)
+		(r2) edge             node [below] {\(a\)} (r3)
+		(r3) edge             node [below] {\(b\)} (r4)
+	; %-path-%
+	\path[dashed,->]
+		(r4) edge             node [below] {\(a\)} (?0)
+	; %-path-%
+	\draw[line width=2]         (q0) to[out=-60,in=60](r0);
+	\draw[line width=2]         (q1) to[out=-60,in=60](r1);
+	\draw[line width=2]        (q1) to[out=90,in=180](?1) to[out=0,in=90](r3);
+	\draw[dashed,line width=2] (?1)                       to[out=0,in=90](?0);
+	\draw[line width=2]        (q0) to[out=90,in=180](?2) to[out=0,in=90](r2);
+	\draw[line width=2]        (?2)                       to[out=0,in=90](r4);
+\end{tikzpicture}
+\begin{align*}
+\text{Es gilt }
+TS_1 &\mathop{\bisim}\limits_{\mathcal{B}_{12}} TS_2
+\text{ mit }
+\mathcal{B}_{12} = \{(q_0,r_i),(q_1,r_j) \ | \ i \text{ mod } 2 = 0; \ j \text{ mod } 2 = 1 \}
+\\
+\Rightarrow TS_2 & \bisim TS_1
+\end{align*}
+\begin{tikzpicture}[node distance=2cm,auto,baseline]
+	\node                                (ts1)                {\(TS_1:\)};
+	\node[state,initial,initial text={}] (q0)  [right of=ts1] {\(q_0\)};
+	\node[state,accepting]               (q1)  [right of=q0]  {\(q_1\)};
+	\node                                (ts3) [below of=ts1] {\(TS_3:\)};
+	\node[state,initial,initial text={}] (s0)  [right of=ts3] {\(s_0\)};
+	\node[state,accepting]               (s1)  [right of=s0]  {\(s_1\)};
+	\node[state]                         (s2)  [right of=s1]  {\(s_2\)};
+	\node[state,accepting]               (s3)  [right of=s2]  {\(s_3\)};
+	\path[->]
+		(q0) edge [bend left] node [above] {\(a\)} (q1)
+		(q1) edge [bend left] node [below] {\(b\)} (q0)
+		(s0) edge             node [below] {\(a\)} (s1)
+		(s1) edge             node [below] {\(b\)} (s2)
+		(s2) edge [bend left] node [below] {\(a\)} (s3)
+		(s3) edge [bend left] node [below] {\(b\)} (s2)
+	; %-path-%
+	\draw[line width=2]   (q0) to[out=-60,in=60](s0);
+	\draw[line width=2]   (q1) to[out=-60,in=60](s1);
+	\draw[line width=2pt] (q0) ..controls($(q0)+(0,2cm)$)and($(s2)+(0,4cm)$)..(s2);
+	\draw[line width=2pt] (q1) ..controls($(q1)+(0,2cm)$)and($(s3)+(0,4cm)$)..(s3);
+\end{tikzpicture}
+\begin{align*}
+\text{Es gilt }
+TS_1 &\mathop{\bisim}\limits_{\mathcal{B}_{13}} TS_3
+\text{ mit }
+\mathcal{B}_{13} = \{(q_0,s_0),(q_0,s2),(q_1,s_1),(q_1,s3)\}
+\\
+\Rightarrow TS_3 &\bisim TS_1
+\end{align*}
+\begin{tikzpicture}[node distance=2cm,auto,baseline]
+	\node                                (ts2)                {\(TS_2:\)};
+	\node[state,initial,initial text={}] (r0)  [right of=ts2] {\(r_0\)};
+	\node[state,accepting]               (r1)  [right of=r0]  {\(r_1\)};
+	\node[state]                         (r2)  [right of=r1]  {\(r_2\)};
+	\node[state,accepting]               (r3)  [right of=r2]  {\(r_3\)};
+	\node[state]                         (r4)  [right of=r3]  {\(r_4\)};
+	\node                                (?0)  [right of=r4]  {};
+	\node                                (ts3) [below of=ts2] {\(TS_3:\)};
+	\node[state,initial,initial text={}] (s0)  [right of=ts3] {\(s_0\)};
+	\node[state,accepting]               (s1)  [right of=s0]  {\(s_1\)};
+	\node[state]                         (s2)  [right of=s1]  {\(s_2\)};
+	\node[state,accepting]               (s3)  [right of=s2]  {\(s_3\)};
+	\path[->]
+		(r0) edge             node [above] {\(a\)} (r1)
+		(r1) edge             node [above] {\(b\)} (r2)
+		(r2) edge             node [above] {\(a\)} (r3)
+		(r3) edge             node [above] {\(b\)} (r4)
+		(s0) edge             node [below] {\(a\)} (s1)
+		(s1) edge             node [below] {\(b\)} (s2)
+		(s2) edge [bend left] node [above] {\(a\)} (s3)
+		(s3) edge [bend left] node [below] {\(b\)} (s2)
+	; %-path-%
+	\path[dashed,->]
+		(r4) edge             node [above] {\(a\)} (?0)
+	; %-path-%
+	\draw[line width=2]          (r0) to[out=-60,in=60](s0);
+	\draw[line width=2]          (r1) to[out=-60,in=60](s1);
+	\draw[line width=2]          (r2) to[out=-60,in=60](s2);
+	\draw[line width=2]          (r3) to[out=-60,in=60](s3);
+	\draw[line width=2pt]        (s2) ..controls($(s2)+(0,-2cm)$)and($(r4)+(0,-4cm)$)..(r4);
+	\draw[dashed,line width=2pt] (s3) ..controls($(s3)+(0,-2cm)$)and($(?0)+(0,-4cm)$)..(?0);
+\end{tikzpicture}
+\begin{align*}
+\text{Es gilt }
+TS_2 &\mathop{\bisim}\limits_{\mathcal{B}_{23}} TS_3
+\\ \text{mit }
+\mathcal{B}_{23} &= \{(r_0,s_0),(r_1,s_1),(r_i,s_2),(r_j,s_3) \ | \ i \geq 2; \ i \text{ mod } 2 = 0; \ j \geq 3; \ j \text{ mod } 2 = 1 \}
+\\
+\Rightarrow TS_3 &\bisim TS_2
+\end{align*}
+
+\subsection{}
+
+\subsubsection{}
+\vspace{-1.5cm}
+\hspace{-2cm}
+\begin{tikzpicture}[node distance=1.5cm,auto,baseline]
+	\node                                                    (ts1)                      {\(TS_1:\)};
+	\node                                                    (?0)  [right=1.5cm of ts1] {};
+	\node                                                    (?1)  [right=1.5cm of ?0]  {};
+	\node                                                    (?2)  [right=1.5cm of ?1]  {};
+	\node                                                    (?3)  [right=1.5cm of ?2]  {};
+	\node                                                    (?4)  [right=1.5cm of ?3]  {};
+	\node                                                    (?5)  [right=1.5cm of ?4]  {};
+	\node                                                    (?6)  [right=1.5cm of ?5]  {};
+	\node                                                    (ts2) [right=1.5cm of ?6]  {\(:TS_2\)};
+	\node                                                    (?7)  [above=4cm of ?0] {};
+	\node[state,initial,initial text={},initial where=left]  (q1)  [above of=?0]        {\(q_1\)};
+	\node[state]                                             (q2)  [above of=?1]        {\(q_2\)};
+	\node[state]                                             (q3)  [below of=?0]        {\(q_3\)};
+	\node[state]                                             (q4)  [at=(?2)]            {\(q_4\)};
+	\node[state,accepting]                                   (q5)  [below of=?1]        {\(q_5\)};
+	\node[state,initial,initial text={},initial where=right] (p1)  [above of=?6]        {\(p_1\)};
+	\node[state]                                             (p2)  [below of=?6]        {\(p_2\)};
+	\node[state]                                             (p3)  [above of=?5]        {\(p_3\)};
+	\node[state]                                             (p4)  [at=(?4)]            {\(p_4\)};
+	\node[state,accepting]                                   (p5)  [below of=?5]        {\(p_5\)};
+	\path[->]
+		(q1) edge              node [above]       {\(x\)} (q2)
+		(q1) edge              node [left]        {\(y\)} (q3)
+		(q2) edge              node [above right] {\(y\)} (q4)
+		(q2) edge              node [left]        {\(x\)} (q5)
+		(q3) edge [loop left]  node [left]        {\(y\)} (q3)
+		(q3) edge              node [below]       {\(x\)} (q5)
+		(q4) edge [loop right] node [right]       {\(y\)} (q4)
+		(q4) edge              node [below right] {\(x\)} (q5)
+		(p1) edge              node [right]       {\(x\)} (p2)
+		(p1) edge              node [above]       {\(y\)} (p3)
+		(p2) edge [loop right] node [right]       {\(y\)} (p2)
+		(p2) edge              node [below]       {\(x\)} (p5)
+		(p3) edge              node [above left]  {\(y\)} (p4)
+		(p3) edge              node [right]       {\(x\)} (p5)
+		(p4) edge [loop left]  node [left]        {\(y\)} (p4)
+		(p4) edge              node [below left]  {\(x\)} (p5)
+	; %-path-%
+	\draw[line width=2]          (q1) to[out=90,in=90](p1);
+	\draw[line width=2pt]        (q3) ..controls($(q3)+(-5cm,5cm)$)and($(p3)+(-5cm,5cm)$)..(p3);
+	\draw[line width=2pt]        (q3)..controls($(q3)+(-5cm,5cm)$)and($(p3)+(-5cm,5cm)$)..(p4);
+	\draw[line width=2]          (q5) to[out=-30,in=-150](p5);
+	\draw[line width=2pt]        (q2)..controls($(q2)+(5cm,5cm)$)and($(p2)+(5cm,5cm)$)..(p2);
+	\draw[line width=2pt]        (q4)..controls($(q2)+(5cm,5cm)$)and($(p2)+(5cm,5cm)$)..(p2);
+\end{tikzpicture}
+\begin{align*}
+\mathcal{B}_1 &= \{(q_1,p_1),(q_2,p_2),(q_3,p_3),(q_3,p_4),(q_4,p_2),(q_5,p_5)\} \\
+\mathcal{B}_2 &=\{(p_1,q_1),(p_2,q_2),(p_2,q_4),(p_3,q_3),(p_4,q_3),(p_5,q_5)\} 
+\end{align*}
+Eine Bisimulationsrelation ist eine Menge von Paaren, die für jeden Zustand eines Transitionssystems \(TS_1\) angibt, welchem Zustand er aus einem entfernten Transitionssystem \(TS_2 \bisim TS_1\) zugeordnet werden kann. Hierbei folgt direkt auch \(TS_1 \bisim TS_2\), sodass es keine Reihenfolge spielt, in welcher Reihenfolge die Zustände im jeweiligen Paar angeordnet werden, solange diese innerhalb der Menge konsistent ist.
+Da hier \(\mathcal{B}_2 = \{(p_i,q_i) \mid (q_i,p_i) \in \mathcal{B}_1\}\) gilt, erfüllen sowohl \(\mathcal{B}_1\) als auch \(\mathcal{B}_2\) die Bedingungen für eine Bisimulation.
+
+\subsubsection{}
+
+\begin{align*}
+\mathcal{B}_3 \coloneqq \mathcal{B}_1 \cup \mathcal{B}_2 = \{&(q_1,p_1),(q_2,p_2),(q_3,p_3),(q_3,p_4),(q_4,p_2),(q_5,p_5),\\&(p_1,q_1),(p_2,q_2),(p_2,q_4),(p_3,q_3),(p_4,q_3),(p_5,q_5)\}
+\end{align*}
+Sämtliche Paare aus \(\mathcal{B}_1\) und \(\mathcal{B}_2\) sind ebenfalls in \(\mathcal{B}_3\) enthalten. Hierbei ist jedes Paar einmal als Relation zwischen einem \(q\) aus \(TS_1\) auf ein \(p\) aus \(TS_2\) enthalten, sowie einmal in umgekehrter Reihenfolge. Durch diese Redundanz erfüllt \(\mathcal{B}_3\) ebenfalls die Bedingungen für eine Bisimulationsrelation.
+
+\subsubsection{}
+
+Ohne die Schleife \((p_2,y,p_2)\) hat \(p_2\) keine \(y\)-Kante mehr, sodass die zuvorige Bisimilarität mit \(q_2\) und \(q_4\) nicht mehr bestehen kann, da diese hingegen immer noch jeweils eine \(y\)-Kante besitzen.
+
+\end{document}

@@ -1,0 +1,160 @@
+\documentclass[12pt,a4paper]{../krautsourcing/homework}
+\usepackage[utf8]{inputenc}
+\usepackage[ngerman]{babel}
+\usepackage[T1]{fontenc}
+\usepackage{amsmath}
+\usepackage{graphicx}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+\usepackage{lmodern}
+\usepackage{paralist}
+\usepackage{tabularx}
+\usepackage{tikz}
+\usetikzlibrary{automata,positioning}
+
+\author{Ruben Felgenhauer,\\Alexander Hildebrandt,\\Leonhard Reichenbach}
+\datef{25}{10}{2015}
+%\date{\today}
+\course{Formale Grundlagen der Informatik II}
+\sheet{2}
+\sectionprefix{Übungsaufgabe \thesheet.}
+\subsectionprefix{\thesheet.}
+\subsubsectioncounter{\alph{subsubsection}}
+\group{06}
+\subsubsectionprefix{(}
+\subsubsectionsuffix{)}
+
+\begin{document}
+
+\makeheadline
+
+\addtocounter{section}{2}
+
+\section{}
+
+\subsection{}
+
+\begin{align*}
+L(A_{2.3})          \ &=\ a^* + b c \cdot (d c)^* \\
+L^\omega(A_{2.3})   \ &=\  a^\omega + b \cdot (c d)^\omega \\
+(L(A_{2.3}))^\omega \ &=\ (a^* + b c \cdot (d c)^*)^\omega
+\end{align*}
+
+\subsection{}
+
+In \(L^\omega(A_{2.3})\) liegen alle Wörter, in denen entweder unendlich oft \(a\) wiederholt wird, oder nach einem initialen \(b\) unendlich oft \((cd)\) wiederholt wird. Hierbei kann \(A_{2.3}\), sobald er ein \(a\) gelesen hat, kein \(b\) mehr lesen, und umgekehrt. \\
+In \((L(A_{2.3}))^\omega\) hingegen liegen alle Wörter, in denen \(a\) beliebig oft wiederholt wird, oder nach einem initialen \(bc\) beliebig oft \((dc)\) wiederholt wird, während diese beiden Sequenzen beliebig aneinandergereiht werden können, wobei die Gesamtsequenz unendlich oft wiederholt werden muss. Nach einem \(a\) kann \(A_{2.3}\) also auch noch ein \(b\) lesen, oder ein weiteres \(a\).
+\begin{align*}
+\{a, b c\}   \ &\subset\ L(A_{2.3}) \\
+\{a^\omega, b \cdot (cd)^\omega\}  \ &\subset\ L^\omega(A_{2.3}) \\
+\{(abcdc)^\omega, a^\omega\} \ &\subset\ (L(A_{2.3}))^\omega \\
+\end{align*}
+
+\subsection{}
+\(A':\) \\
+\begin{tikzpicture}[node distance=3cm,on grid,auto]
+	\node[state,initial,initial text={}, accepting] (q0)               {\(q_0\)};
+	\node[state]                                    (q1) [right of=q0] {\(q_1\)};
+	\node[state]                                    (q2) [right of=q1] {\(q_2\)};
+	\node[state]                                    (q3) [right of=q2] {\(q_3\)};
+	\path[->]
+		(q0) edge [loop above] node [above] {\(a\)}   ()
+		(q0) edge [bend left]  node [above] {\(b\)}   (q1)
+		(q1) edge [bend left]  node [below] {\(c\)}   (q0)
+		(q1) edge              node [above] {\(c\)}   (q2)
+		(q2) edge [bend left]  node [above] {\(d\)}   (q3)
+		(q3) edge [bend left]  node [below] {\(c\)}   (q2)
+	; %-path-%
+	\draw[->](q3) to[out=-130,  in=-50,  edge node={node [above] {\(c\)}}] (q0);
+\end{tikzpicture}
+
+\newpage
+
+\noindent Korrektheitsbeweis:\\
+\begin{tabularx}{\linewidth}{@{}>{\bfseries}l@{\hspace{.5em}}X@{}}
+    \(\glqq\Rightarrow\grqq:\) &
+    Sei \(w \in L(A') \).
+
+    Dann akzeptiert der Automat \(w\). Dazu muss \(w\) unendlich oft durch einen Endzustand laufen. \(q_0\) ist der einzige Endzustand. Dieser ist durch folgende Schleifen erreichbar: Die Schleife an \(q_0\) selbst, die Schleife durch \(q_0-q_1\) und die Schleife durch alle vorhandene Zustände. Diese Schleifen sind definiert durch: \(a^\omega, (bc)^\omega, (bc(dc)^+)^\omega \). Zusammengefasst ergibt sich aus den drei möglichen Wegen für \(w\) die Form \((a^* + bc(dc)^*)^\omega \).
+	
+    Also ist \(w \in \{a^*,b c \cdot (d c)^*\}^\omega \) und \(L(A') \subseteq(L(A_{2.3}))^\omega \).
+
+     \\
+
+    \(\glqq\Leftarrow\grqq:\) &
+    Sei \(w \in \{a^*,b c \cdot (d c)^*\}^\omega \).
+
+    Dann besteht \(w\) aus den Segmenten \(x_1 = a^*\) und \(x_2 = bc(dc)^*\). Diese Segmente werden in beliebiger Reihenfolge unendlich oft wiederholt. Da \(w\) im einzigen Endzustand \(q_0\) startet, muss \(w\) nach jedem Segment wieder in \(q_0\) landen.
+	
+    Durch die Rechnung ergibt sich:
+	
+    \(\delta(\{q_0\}, x_1) \rightarrow \delta(\{q_0\}, \lambda)\).
+	
+    \(\delta(\{q_0\}, x_2) \rightarrow \delta(\{q_0, q_2\}, (dc)^*) \rightarrow \delta(\{q_0, q_3\}, \lambda) \).
+	
+    Es gibt also mindestens einen Weg, um nach jedem Segment wieder in \(q_0\) zu sein.
+	
+    Also ist \(w \in L(A')\) und \((L(A_{2.3}))^\omega \subseteq L(A')\).	  
+\end{tabularx}
+
+\hfill \(\square\)
+
+\section{}
+Zu zeigen ist, dass der \(\omega\)-Abschluss einer regulären Menge eine \(\omega\)-reguläre Menge ist.
+
+\subsection{}
+%Grobe Idee: \\
+%Reguläre Menge \(=\) NFA\\
+%\(\omega\)-Reguläre Menge \(=\) Büchi-Automat.\\
+%Finde Verfahren NFA \(\Rightarrow\) Büchi.\\
+%(Neue Kante End- zu Startzustand.)
+Man beginnt mit einer regulären Menge, diese lässt sich als NFA darstellen. Nun bildet man den \(\omega\)-Abschluss der Menge. Ist der resultierende Automat ein Büchi-Automat so ist die Menge \(\omega\)-regulär. Wir wollen zeigen wie diese Konstruktion funktioniert und ihre Gültigkeit beweisen.
+\subsection{}
+Unser Konstruktionsverfahren lautet wie folgt:\\
+Für alle \(q_E \in F\) und \(q_A \in S\) des NFA führen wir zusätzliche Übergangsrelationen \((q_E, \lambda, q_A)\) ein.
+Damit haben wir nun Kanten die von allen Endzuständen zu allen Anfangszuständen führen und dadurch unsere \glqq \(\omega\)-Schleifen\grqq{} bilden. Nun haben wir einen Büchi-Automaten der den \(\omega\)-Abschluss der gegebenen regulären Menge akzeptiert, damit ist der \(\omega\)-Abschluss einer regulären Menge \(\omega\)-regulär.
+\newpage
+\subsection{}
+Der \(\omega\)-Abschluss \((L(A_\textit{NFA}))^\omega\) besteht aus der unendlichen Aneinanderreihung von Wörtern aus \(L(A_\textit{NFA})\). Also muss für unseren konstruierten Büchi-Automaten gelten:
+\begin{align*}
+L^\omega (A_\textit{Büchi}) = L(A_\textit{NFA}))^\omega
+\end{align*}
+\noindent Korrektheitsbeweis:\\
+\begin{tabularx}{\linewidth}{@{}>{\bfseries}l@{\hspace{.5em}}X@{}}
+    \(\glqq\Rightarrow\grqq:\) &
+    Sei \(w \in L^\omega (A_\textit{Büchi}) \).
+
+    Dann akzeptiert der Automat \(w\). Dazu muss \(w\) unendlich oft durch einen Endzustand laufen. Dazu wird zunächst ein Wort aus \(L(A_\textit{NFA})\) gelesen, vom Endzustand kommt man nun nichtdeterministisch zurück in die Anfangszustände und beginnt von vorn. Also besteht \(w\) aus unendlichen Aneinanderreihungen von Wörtern aus \(L(A_\textit{NFA})\).
+	
+    Damit ist \(w \in L(A_\textit{NFA}))^\omega \) und \( L^\omega (A_\textit{Büchi})  \subseteq L(A_\textit{NFA}))^\omega \).
+
+     \\
+
+    \(\glqq\Leftarrow\grqq:\) &
+    Sei \(w \in L(A_\textit{NFA}))^\omega \).
+
+    Dann besteht \(w\) aus unendlichen Aneinanderreihungen von Wörtern aus \(L(A_\textit{NFA})\). Nachdem eines dieser Teilwörter von gelesen wurde befindet man sich in einem Endzustand von dem man über die \(\lambda\)-Kanten in die Startzustände kommt. Dies wiederholt sich unendlich oft. Da deswegen auch mindestens ein Endzustand unendlich oft durchlaufen wird akzeptiert der Automat das Wort \(w\).
+	
+    Also ist \(w \in L^\omega (A_\textit{Büchi})\) und \(L(A_\textit{NFA}))^\omega \subseteq L^\omega (A_\textit{Büchi})\).	  
+\end{tabularx}
+
+\subsection{}
+
+\begin{tikzpicture}[node distance=3cm,on grid,auto]
+	\node[state,initial,initial text={}, accepting] (q0)               {\(q_0\)};
+	\node[state,initial,initial text={}]                                    (q1) [right of=q0] {\(q_1\)};
+	\node[state]                                    (q2) [right of=q1] {\(q_2\)};
+	\node[state, accepting]                                    (q3) [right of=q2] {\(q_3\)};
+	\path[->]
+		(q0) edge [loop above] node [above] {\(a, \lambda\)}   ()
+		(q0) edge [bend left]  node [above] {\(\lambda\)}   (q1)
+		(q1) edge [bend left]  node [above] {\(b\)}   (q2)
+		(q2) edge [bend left]  node [above] {\(c\)}   (q3)
+		(q3) edge [bend left]  node [below] {\(d\)}   (q2)
+	; %-path-%
+	\draw[->](q3) to[out=-130,  in=-50,  edge node={node [above] {\(\lambda\)}}] (q0);
+	\draw[->](q3) to[out=-130,  in=-50,  edge node={node [above] {\(\lambda\)}}] (q1);
+\end{tikzpicture}
+%\input{bonusaufgabe}
+
+\end{document}

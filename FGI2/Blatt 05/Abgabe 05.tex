@@ -1,0 +1,456 @@
+\documentclass[12pt,a4paper]{../krautsourcing/homework}
+\usepackage[utf8]{inputenc}
+\usepackage[ngerman]{babel}
+\usepackage[T1]{fontenc}
+\usepackage{amsmath}
+\usepackage{graphicx}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+\usepackage{lmodern}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{paralist}
+\usepackage{tabularx}
+\usepackage{setspace} 
+\usepackage{tikz}
+\usepackage{mathtools}
+\usepackage{array}
+\usetikzlibrary{automata,positioning,calc,backgrounds}
+\usepackage{ifthen}
+
+\author{Ruben Felgenhauer,\\Alexander Hildebrandt,\\Leonhard Reichenbach}
+\datef{15}{11}{2015}
+%\date{\today}
+\course{Formale Grundlagen der Informatik II}
+\sheet{5}
+\sectionprefix{Übungsaufgabe \thesheet.}
+\subsectionprefix{\thesheet.}
+\subsubsectioncounter{\alph{subsubsection}}
+\group{06}
+\subsubsectionprefix{(}
+\subsubsectionsuffix{)}
+
+%% <ltl-kram>
+%% <here be dragons>
+\newcommand{\tlcheckargs}[1]{
+	\ifthenelse{\equal{#1}{letter}\OR\equal{#1}{symbol}}{}{%
+    	\errmessage{Operator style must be either "symbol" or "letter"}
+    }
+}
+\newcommand{\thetlstyle}{symbol}
+\newcommand{\tlstyle}[1]{%
+	\tlcheckargs{#1}
+	\renewcommand{\thetlstyle}{#1}
+}
+\newcommand{\DeclareTLOperator}[3]{%
+	\newcommand{#1}[1][\thetlstyle]{%
+		\tlcheckargs{##1}
+		\mathop{%
+			\ifthenelse{\equal{#3}{}\OR\equal{##1}{letter}}{%
+				\textbf{#2}
+			}{%
+%% </here be dragons>
+%% <tweaking area>			
+				\newcommand{\width}{8pt}
+				\newcommand{\baseline}{-0.3pt}
+				\newcommand{\preindent}{-2mu}
+				\newcommand{\postindent}{-4mu}	
+				\tikzset{ 
+					tldrawstyle/.style={
+						line width=0.5pt
+					}
+				}
+%% </tweaking area>		
+%% <here be dragons>				
+				\mspace{\preindent}\raisebox{\baseline}{%
+					\tikz{%
+						\coordinate (bl) at (0,0);
+						\coordinate (tr) at (\width,\width);
+						\coordinate (tl) at (bl|-tr);
+						\coordinate (br) at (tr|-bl);
+						\coordinate (t)  at ($(tl)!0.5!(tr)$); 
+						\coordinate (r)  at ($(tr)!0.5!(br)$);
+						\coordinate (b)  at ($(bl)!0.5!(br)$);
+						\coordinate (l)  at ($(tl)!0.5!(bl)$);
+						\draw[tldrawstyle] #3 --cycle;
+					}
+				}\mspace{\postindent}
+			}
+		}
+	}
+}
+\DeclareTLOperator{\tlG}{G}{%
+	(tl) to[out=0,   in=180] (tr)
+		 to[out=270, in=90]  (br)
+		 to[out=180, in=0]   (bl)
+		 to[out=90,  in=270] (tl)
+}
+\DeclareTLOperator{\tlF}{F}{%
+	(t)  to[out=315, in=135] (r)
+		 to[out=225, in=45]  (b)
+		 to[out=135, in=315] (l)
+		 to[out=45,  in=225] (t)
+}
+\DeclareTLOperator{\tlX}{X}{%
+	(t)	 to[out=0,   in=90]  (r)
+		 to[out=270, in=0]   (b)
+		 to[out=180, in=270] (l)
+		 to[out=90,  in=180] (t)
+}
+\DeclareTLOperator{\tlU}{U}{}
+\DeclareTLOperator{\tlE}{E}{}
+\DeclareTLOperator{\tlA}{A}{}
+%% </here be dragons>
+%% </ltl-kram>
+
+\newcommand{\br}{\\ \phantom{-} \\}
+\newcommand{\as}[1]{\textcolor{blue}{\footnotesize{#1}}}
+\newcommand{\nodesize}{3cm}
+\tikzset{
+	statex/.style={
+		state,
+		minimum width=20mm,
+		align=center,
+		scale=1.2
+	}
+}
+\newcommand{\drawtscell}[7]{\scalebox{0.65}{\begin{tikzpicture}[auto,baseline]
+	\node[statex,initial left,initial text={},accepting]  (c0) {#2};
+	\node[above right=-2mm of c0]                              {\(c_0\)};
+	\node[statex,below right=40mm and 80mm of c0]         (c4) {#6};
+	\node[above left=-1mm of c4]                               {\(c_4\)};
+	\node[statex,at=(c0|-c4)]                             (c2) {#4};
+	\node[above left=-1mm of c2]                               {\(c_2\)};
+	\node[statex,at=(c4|-c0)]                             (c5) {#7};
+	\node[above left=-1mm of c5]                               {\(c_5\)};
+	\node[statex,at=($(c2)!0.5!(c4)$)]                    (c3) {#5};
+	\node[above right=-2mm of c3]                              {\(c_3\)};
+	\node[statex,at=($(c0)!0.5!(c3)$)]                    (c1) {#3};
+	\node[above right=-2mm of c1]                              {\(c_1\)};
+	\node[above left=15mm of c0,align=left,anchor=west]        {(Teil-)Formel: #1};
+	\path[->]
+		(c0) edge                            node [below left]              {\(o\)}
+		                                     node [above right=-2mm]        {\as{turn-on}}         (c1)
+		(c1) edge [bend right=20]            node [right]                   {\(u\)}
+		                                     node [above=3mm]               {\as{unlock}}          (c2)
+		(c2) edge                            node [below left]              {\(f\)}
+		                                     node [above left]              {\as{turn-off}}        (c0)
+		(c2) edge [bend right=20]            node [left]                    {\(l\)}
+		                                     node [above right=2mm and 3mm] {\as{lock}}            (c1)
+		(c2) edge [bend right=20]            node [above]                   {\(c\)}
+		                                     node [below]                   {\as{call}}            (c3)
+		(c3) edge [bend right=20]            node [below]                   {\(h\)}
+		                                     node [above right=-2mm]        {\as{hang-up}}         (c2)
+		(c3) edge [loop above,distance=15mm] node [below]                   {\(t\)}
+		                                     node [above]                   {\as{talk}}            (c3)
+		(c3) edge                            node [above]                   {\(e\)}
+		                                     node [below]                   {\as{error-occurence}} (c4)
+		(c4) edge [loop right,distance=15mm] node [left]                    {\(o\)}
+		                                     node [above=3mm]               {\as{turn-on}}         (c4)
+		(c4) edge                            node [right]                   {\(r\)}
+		                                     node [left=-1mm]               {\as{remove-battery}}  (c5)
+		(c5) edge                            node [above]                   {\(s\)}
+		                                     node [below]                   {\as{set-battery}}     (c0)
+	; %-path-%
+\end{tikzpicture}}}
+
+\newcommand{\TScell}{TS_\textit{cell}}
+\newcommand{\Mcell}{M_\textit{cell}}
+\newcommand{\eLocked}{\textit{Locked}}
+\newcommand{\eBattery}{\textit{Battery}}
+\newcommand{\eOn}{\textit{On}}
+\newcommand{\eActive}{\textit{Active}}
+\newcommand{\eError}{\textit{Error}}
+\newcommand{\nmodels}{\not\models}
+\newcommand{\true}{\text{True}}
+
+\begin{document}
+
+\makeheadline
+
+\addtocounter{section}{2}
+
+\section{}
+\subsection{}
+\vspace{-5mm}
+\tlstyle{letter}
+\begin{align*}
+f &= \lnot (\tlE \true \tlU \lnot (\lnot \eError \lor \tlE ( \eError \tlU \lnot \eBattery)) \lor \lnot \tlE \tlG \lnot \eActive)
+\\
+g &= \lnot \tlE \true \tlU ( \lnot \tlE\relax [\true \tlU \eActive])
+\end{align*}
+\vspace{-10mm}
+\subsubsection{}
+\hspace*{-12mm}
+\begin{tabular}{c>{\hspace{-10mm}}c<{}}
+\drawtscell
+	{\(f_0 \coloneqq \eActive\)}
+	{}
+	{}
+	{}
+	{\(f_0\)}
+	{}
+	{}
+&
+\drawtscell
+	{\(f_1 \coloneqq \tlE \tlG (\lnot \eActive)\)}
+	{\(f_1\)}
+	{\(f_1\)}
+	{\(f_1\)}
+	{\(f_0\)}
+	{\(f_1\)}
+	{\(f_1\)}
+\br
+\drawtscell
+	{\(f_2 \coloneqq \lnot (\tlE \tlG (\lnot \eActive))\)}
+	{\(f_1\)}
+	{\(f_1\)}
+	{\(f_1\)}
+	{\(f_0\)}
+	{\(f_1\)}
+	{\(f_1\)}
+&
+\drawtscell
+	{\(f_3 \coloneqq \lnot \eBattery\)}
+	{\(f_1\)}
+	{\(f_1\)}
+	{\(f_1\)}
+	{\(f_0\)}
+	{\(f_1\)}
+	{\(f_1\) \br \(f_3\)}
+\end{tabular}
+\newpage
+\hspace*{-20mm}
+\begin{tabular}{c>{\hspace{-10mm}}c<{}}
+\drawtscell
+	{\(f_4 \coloneqq \tlE ( \eError \tlU \lnot \eBattery)\)}
+	{\(f_1\)}
+	{\(f_1\)}
+	{\(f_1\)}
+	{\(f_0\)}
+	{\(f_1\) \br \(f_4\)}
+	{\(f_1\) \br \(f_3\) \br \(f_4\)}
+&
+\drawtscell
+	{\(f_5 \coloneqq \lnot (\lnot \eError \lor \tlE ( \eError \tlU \lnot \eBattery))\)}
+	{\(f_1\)}
+	{\(f_1\)}
+	{\(f_1\)}
+	{\(f_0\)}
+	{\(f_1\) \br \(f_4\)}
+	{\(f_1\) \br \(f_3\) \br \(f_4\)}
+\br
+\drawtscell
+	{\(f_6 \coloneqq \tlE \true \tlU \lnot (\lnot \eError \lor \tlE ( \eError \tlU \lnot \eBattery))\)}
+	{\(f_1\)}
+	{\(f_1\)}
+	{\(f_1\)}
+	{\(f_0\)}
+	{\(f_1\) \br \(f_4\)}
+	{\(f_1\) \br \(f_3\) \br \(f_4\)}
+&
+\drawtscell
+	{\(f = \lnot (\tlE \true \tlU \lnot (\lnot \eError \lor \tlE ( \eError \tlU \lnot \eBattery)) \lor \lnot \tlE\tlG \lnot \eActive)\)}
+	{\(f_1\) \br \(f\)}
+	{\(f_1\) \br \(f\)}
+	{\(f_1\) \br \(f\)}
+	{\(f_0\) \br \(f\)}
+	{\(f_1\) \br \(f_4\) \br \(f\)}
+	{\(f_1\) \br \(f_3\) \br \(f_4\) \br \(f\)}
+\end{tabular}
+
+\subsubsection{}
+
+\hspace*{-14mm}
+\begin{tabular}{c>{\hspace{-10mm}}c<{}}
+\drawtscell
+	{\(g_0 \coloneqq \eActive\)}
+	{}
+	{}
+	{}
+	{\(g_0\)}
+	{}
+	{}
+&
+\drawtscell
+	{\(g_1 \coloneqq \tlE \true \tlU \eActive\)}
+	{\(g_1\)}
+	{\(g_1\)}
+	{\(g_1\)}
+	{\(g_0\) \br \(g_1\)}
+	{\(g_1\)}
+	{\(g_1\)}
+\end{tabular}
+
+\newpage
+
+\hspace*{-20mm}
+\begin{tabular}{c>{\hspace{-10mm}}c<{}}
+\drawtscell
+	{\(g_2 \coloneqq \lnot  \tlE \true \tlU \eActive\)}
+	{\(g_2\)}
+	{\(g_2\)}
+	{\(g_2\)}
+	{\(g_0\) \br \(g_2\)}
+	{\(g_2\)}
+	{\(g_2\)}
+&
+\drawtscell
+	{\(g_3 \coloneqq \tlE \true \tlU (\lnot \tlE\relax[\true \tlU \eActive])\)}
+	{\(g_2\)}
+	{\(g_2\)}
+	{\(g_2\)}
+	{\(g_0\) \br \(g_2\)}
+	{\(g_2\)}
+	{\(g_2\)}
+\br
+\drawtscell
+	{\(g = \lnot \tlE \true \tlU (\lnot \tlE\relax[\true \tlU \eActive])\)}
+	{\(g_2\) \br \(g\)}
+	{\(g_2\) \br \(g\)}
+	{\(g_2\) \br \(g\)}
+	{\(g_0\) \br \(g_2\) \br \(g\)}
+	{\(g_2\) \br \(g\)}
+	{\(g_2\) \br \(g\)}
+\end{tabular}
+
+\subsection{}
+
+\begin{tabularx}{\linewidth}{@{}>{\(}l<{\):}@{\hspace{.5em}}X@{}}
+f &
+Auf allen Pfaden gilt immer, dass wenn \eError\ gilt, \eError\ dann so lange gilt, bis \eBattery\ nicht mehr gilt.
+Außerdem gilt auf nicht allen Pfaden irgendwann \eActive.
+\\
+g &
+Für alle Pfade gilt immer, dass es einen Pfad gibt, auf dem irgendwann einmal \eActive\ gilt.
+\end{tabularx}
+
+\subsection{}
+
+\begin{align*}
+	\text{Sat}(\phi) = \text{Sat}(f) = \text{Sat}(g) = S
+\end{align*}
+
+\subsection{}
+Wie in 5.3.1 bewiesen, gilt \(\forall c \in S(M) : M, c \models f\), somit gilt auch \(M, c_0 \models f\).
+ 
+\newpage
+
+\section{}
+
+\subsection{}
+
+\begin{tikzpicture}[auto, baseline, node distance=25mm,statex/.style={state,draw,minimum width=15mm}]
+\node                                                  (a1)  {\(A_1\):};
+\node[statex,right=15mm of a1,initial,initial text={}] (r1)  {\(\{r_1\}\)};
+\node[statex,right of=r1]                              (rg1) {\(\{rg_1\}\)}; 
+\node[statex,right of=rg1]                             (gr1) {\(\{(gr_1\}\)}; 
+\node[statex,right of=gr1]                             (g1)  {\(\{g_1\}\)}; 
+\node[below=30mm of a1]                                (a2)  {\(A_2\):};
+\node[statex,initial,initial text={}, at=(r1|-a2)]     (gr2) {\(\{gr_2\}\)};
+\node[statex,right of=gr2]                             (g2)  {\(\{g_2\}\)};
+\node[statex,right of=g2]                              (r2)  {\(\{r_2\}\)};
+\node[statex,right of=r2]                              (rg2) {\(\{rg_2\}\)};
+\path[->]
+	(r1)  edge               (rg1)
+	(rg1) edge               (gr1)
+	(gr1) edge               (g1)
+    (gr2) edge               (g2)
+    (g2)  edge               (r2)
+	(r2)  edge               (rg2)
+	(g1)  edge[bend left=40] (r1)
+	(rg2) edge[bend left=40] (gr2)
+; %-path-%
+\end{tikzpicture}
+
+\subsection{}
+
+\begin{tikzpicture}[auto, baseline, node distance=25mm,statex/.style={state,draw,minimum width=19mm}]
+\node                                                            (ts)    {\(A_1\otimes A_2\):};
+\node[statex,initial,initial text={},accepting,right=10mm of ts] (r1gr2) {\(\{r_1, gr_2\}\)};
+\node[statex,right of=r1gr2]                                     (r1g2)  {\(\{r_1, g_2\}\)};
+\node[statex,right of=r1g2]                                      (rg1r2) {\(\{rg_1, r_2\}\)};
+\node[statex,right of=rg1r2]                                     (gr1r2) {\(\{gr_1, r_2\}\)};
+\node[statex,right of=gr1r2]                                     (g1r2)  {\(\{g_1, r_2\}\)};
+\node[statex,right of=g1r2]                                      (r1rg2) {\(\{r_1, rg_2\}\)};
+\path[->]
+	(r1gr2) edge                (r1g2)
+	(r1g2)  edge                (rg1r2)
+	(rg1r2) edge                (gr1r2)
+	(gr1r2) edge                (g1r2)
+	(g1r2)  edge                (r1rg2)
+	(r1rg2) edge [bend left=30] (r1gr2)
+; %-path-%
+\end{tikzpicture}
+
+
+\subsection{}
+
+\begin{align*}
+	\lnot \phi = \lnot (\tlG \lnot (gr_1 \land gr_2)) = \tlF (gr_1 \land gr_2)
+\end{align*}
+\begin{tikzpicture}[auto, baseline]
+\node (ts) {\(M_{\lnot \phi}\):};
+
+\node[state,initial,initial text={},right=10mm of ts] (nil) {\(m_0\)};
+\node[state,accepting,right=25mm of nil]              (all) {\(m_1\)};
+\path[->]
+	(nil) edge[loop above] node[above] {\(\lnot \{ gr_1, gr_2\}\)}
+	(nil) edge             node[above] {\(\{gr_1, gr_2\}\)}        (all)
+	(all) edge[loop above] node[above] {\(w\)}                     (all)
+; %-path-%
+\end{tikzpicture}
+
+\newpage
+
+\subsection{}
+
+\begin{align*}
+\text{ES}(A_1\otimes A_2) = (\{r_1,gr_2\}\cdot\{r_1,g_2\}\cdot\{rg_1,r_2\}\cdot\{gr_1,r_2\}\cdot\{g_1,r_2\}\cdot\{r_1,rg_2\})^\omega
+\end{align*}
+\begin{tikzpicture}[auto, baseline, node distance=20mm]
+\node                                                           (ts) {\(B\):};
+\node[state,initial,initial text={},accepting,right=10mm of ts] (b0) {\(b_0\)};
+\node[state,right of=b0]                                        (b1) {\(b_1\)};
+\node[state,right of=b1]                                        (b2) {\(b_2\)};
+\node[state,right of=b2]                                        (b3) {\(b_3\)};
+\node[state,right of=b3]                                        (b4) {\(b_4\)};
+\node[state,right of=b4]                                        (b5) {\(b_5\)};
+\path[->]
+	(b0) edge[bend right]    node[below] {\(\{r_1,gr_2\}\)} (b1)
+	(b1) edge[bend right]    node[below] {\(\{r_1,g_2\}\)}  (b2)
+	(b2) edge[bend right]    node[below] {\(\{rg_1,r_2\}\)} (b3)
+	(b3) edge[bend right]    node[below] {\(\{gr_1,r_2\}\)} (b4)
+	(b4) edge[bend right]    node[below] {\(\{g_1,r_2\}\)}  (b5)
+	(b5) edge[bend right=25] node[above] {\(\{r_1,rg_2\}\)} (b0)
+; %-path-%
+\end{tikzpicture}
+
+
+\subsection{}
+Hierbei wurden nicht erreichbare Zustände weggelassen.\\
+\begin{tikzpicture}[auto, baseline, node distance=27mm, statex/.style={state,draw,minimum width=10mm}]
+\node (ts) {\(B \otimes M_{\lnot \phi}\):};
+\node[state,accepting,initial,initial text={},below=0mm of ts] (b0m01) {\(b_0, m_0, 1\)};
+\node[statex, below=10mm of b0m01]                             (b0m0)  {\(b_0, m_0, 2\)};
+\node[statex,right of=b0m0]                                    (b1m0)  {\(b_1, m_0, 2\)};
+\node[statex,right of=b1m0]                                    (b2m0)  {\(b_2, m_0, 2\)};
+\node[statex,right of=b2m0]                                    (b3m0)  {\(b_3, m_0, 2\)};
+\node[statex,right of=b3m0]                                    (b4m0)  {\(b_4, m_0, 2\)};
+\node[statex,right of=b4m0]                                    (b5m0)  {\(b_5, m_0, 2\)};
+\path[->]
+	(b0m01) edge[bend left] node[above right] {\(\{r_1,gr_2\}\)} (b1m0)
+	(b0m0)  edge[bend left] node[above]       {\(\{r_1,gr_2\}\)} (b1m0)
+	(b1m0)  edge[bend left] node[above]       {\(\{r_1,g_2\}\)}  (b2m0)
+	(b2m0)  edge[bend left] node[above]       {\(\{rg_1,r_2\}\)} (b3m0)
+	(b3m0)  edge[bend left] node[above]       {\(\{gr_1,r_2\}\)} (b4m0)
+	(b4m0)  edge[bend left] node[above]       {\(\{g_1,r_2\}\)}  (b5m0)
+	(b5m0)  edge[bend left] node[above]       {\(\{r_1,rg_2\}\)} (b0m0)
+;%-path-%
+%
+\end{tikzpicture}\\
+\(L^\omega(A_1 \otimes A_2) \cap L^\omega (M_{\lnot\phi}) = \emptyset\), da der Produkt-Büchi-Automat kein Wort akzeptiert, denn der Endzustand kann nicht unendlich oft durchlaufen werden.
+\subsection{}
+
+Da \(L^\omega(A_1 \otimes A_2) \cap L^\omega (M_{\lnot\phi}) = \emptyset\) gilt, erfüllt das System die Spezifikation \(\phi\). 
+\end{document}

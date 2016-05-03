@@ -1,0 +1,6 @@
+11 
+    de.renew.gui.CPNDrawing 2 
+        de.renew.gui.PlaceFigure "attributes" "attributes" 3 "FigureWithID" "Int" 1633 "FrameColor" "Color" 0 0 0 255 "FillColor" "Color" 255 199 158 255 1227 173 20 20 NULL  
+        de.renew.gui.CPNTextFigure "attributes" "attributes" 4 "TextAlignment" "Int" 1 "FigureWithID" "Int" 1639 "FrameColor" "Color" 255 199 158 255 "FillColor" "Color" 255 199 158 255 1227 157 "p18" "SansSerif" 1 12 0 REF 1 
+            CH.ifa.draw.standard.OffsetLocator 0 -18 
+                CH.ifa.draw.standard.RelativeLocator 0.5 0.5   2  NULL  -10 255 1435 668 
