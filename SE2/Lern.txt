@@ -1,0 +1,12 @@
+    Entwurfsmuster		X
+    Exceptions		X
+    Fachwerte		X
+    Klassenentwurf		X
+    Reguläre Ausdrücke	X
+    Swing			X
+    SE2-Entwurfsregeln	X
+    Testen			X
+    Vererbung		X
+    Vertragsmodell		X
+
+Lecture2Go 13
