@@ -1,0 +1,26 @@
+4.1
+a) 8*7*6*5*4 = 6720
+b) (7*6*5*4)/(8*7*6*5*4) = 0,125
+c) zu a: 8^5 = 32768 ------- zu b: 8^4 / 32768 = 0.125
+d) mit Einschr: (8 OVER 5) = 56 ----- ohne Einschr: (8-1+5 OVER 5) = 792
+
+4.2
+a) 9+8+7+6+5+4+3+2+1=(10 OVER 2) = 45
+b) 4 * (10 OVER 2) = 180
+c) 7! / 7 = 1*6! = 720
+d) 1*2*5! / 720 = 240 / 720 = 1/3
+
+HAUS
+4.1
+a) (3 OVER 1) * (7 OVER 4) * (8 OVER 4) * (4 OVER 2) = 3*35*70*6 = 44100
+b)
+c) 4*3*2*1
+
+4.2
+a) (10-1+7 OVER 7) =
+b) ja, alles gleich wahrscheinlich
+
+4.3
+nichtnegativ: 1-alpha mindestens 0 => keine negativen werte => immer positiv
+nomiert: R(OMEGA) = ALPHA * P(OMEGA) + (1-ALPHA) * Q(OMEGA) = ALPHA + (1-ALPHA) = 1
+SIGMA-additiv:
