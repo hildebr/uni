@@ -1,0 +1,33 @@
+\begin{blockgraph}{27}{2}{1}
+    \bglabelxx{0}
+    \bglabelxx{5}
+    \bglabelxx{10}
+    \bglabelxx{15}
+    \bglabelxx{20}
+    \bglabelxx{25}
+
+    \bglabely{1}{Prozessankunft}
+
+    \bgblock[1]{0}{1}{$p1$}
+    \bgblock[1]{5}{6}{$p2$}
+    \bgblock[1]{6}{7}{$p3$}
+    \bgblock[1]{7}{8}{$p4$}
+    \bgblock[1]{9}{10}{$p5$}
+
+    \bglabely{0}{Prozessfolge}
+
+    \bgemptysingleblock[0]{0}
+    \bgblock[0]{1}{7}{$p1$}
+
+    \bgemptysingleblock[0]{7}
+    \bgblock[0]{8}{9}{$p3$}
+
+    \bgemptysingleblock[0]{9}
+    \bgblock[0]{10}{12}{$p4$}
+
+    \bgemptysingleblock[0]{12}
+    \bgblock[0]{13}{18}{$p2$}
+
+    \bgemptysingleblock[0]{18}
+    \bgblock[0]{19}{27}{$p5$}
+\end{blockgraph}

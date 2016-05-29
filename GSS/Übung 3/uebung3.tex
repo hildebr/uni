@@ -1,0 +1,88 @@
+\documentclass[a4paper,11pt,ngerman]{scrartcl}
+
+\usepackage[shortlabels]{enumitem}
+\usepackage{csquotes}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[top=1.3in, bottom=1in, left=1.0in, right=0.6in]{geometry}
+\usepackage{fancyhdr}
+\usepackage[hidelinks]{hyperref}
+\usepackage{tikz}
+\usepackage{array}
+\usepackage{amsmath}
+\usepackage{setspace}
+\usepackage{lastpage}
+\usepackage{graphicx}
+\usepackage{blockgraph}
+\usepackage{icomma}
+
+\author{Hildebrandt, Riemenschneider}
+\title{GSS-Übungsblatt 3}
+
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[C]{Hildebrandt, Riemenschneider}
+\fancyhead[L]{Blatt 3}
+\fancyhead[R]{Seite~\thepage\ von \pageref{LastPage}}
+
+\begin{document}
+
+\maketitle
+\thispagestyle{empty}
+
+\doublespace
+
+\section{Scheduling-Algorithmen}
+
+\begin{enumerate}[\bf a)]
+    \item Illustration:\\
+        \begin{figure}[h]
+            \scalebox{0.56}{\input{bg1.tex}}
+        \end{figure}
+
+        p1 ist der einzige Prozess mit Ankunftszeit 0, also wird dieser zuerst ausgeführt. Nach dem Beenden des Prozesses haben wir die Wahl zwischen p2, p3 und p4. p3 hat die höchste Bediengüte mit einem Wert von 2 und wird deshalb als nächstes ausgeführt. Danach gibt es p2, p4 und p5 zur Auswahl. p4 hat eine Bediengüte von 2.5 und wird als nächstes gewählt. Nun gibt es nur noch p2 und p5. p2 erhält nun eine Bediengüte von 2.4 und wird auch ausgeführt. Zu guter Letzt ist p5 als einziger Prozess übrig und wird schließlich auch ausgeführt.
+
+    \item Illustration:\\
+        \begin{figure}[h]
+            \scalebox{0.5}{\input{bg2.tex}}
+        \end{figure}
+
+        Bei Round Robin werden Prozesse, sobald ihre Ankunftszeit erreicht wurde, nacheinander per Warteschlange ausgeführt, wobei nicht-abgeschlossene Prozesse an das Ende der Warteschlange gestellt werden. In diesem Beispiel hat jeder Prozess 2 Zeiteinheiten zur Verfügung bevor der nächste Prozess der Warteschlange ausgeführt wird.
+\end{enumerate}
+
+\section{Echtzeit- und Multiprozessor-Scheduling}
+
+\begin{enumerate}[\bf a)]
+    \item Um zu Beweisen, dass die Deadlines nicht eingehalten werden können, rechnet man für jeden Auftrag Bedienzeitforderung durch die Periodendauer und addiert die drei Brüche, die man erhält. Das Ergebnis ist kleiner-gleich 1, falls es möglich ist, alle Aufträge zu bewältigen.
+        
+    \begin{displaymath}
+        A_1 + A_2 + A_3 = \frac{1}{4} + \frac{3}{7} + \frac{1}{3} = \frac{85}{84} > 1
+    \end{displaymath}
+    Die Deadlines können also nicht eingehalten werden. 
+    
+    \item[\textbf{b) ii)}] Illustration:
+    \begin{center}
+        \scalebox{0.4}{\input{graph2b.tex}}
+    \end{center}
+    B2 wird nie ausgeführt, da alle Prozesse mit höherer Priorität in eine neue Periode gehen, und damit zu jeder Zeit ein Prozess mit höherer Priorität als B2 vorliegt.
+    
+    \item[\bf c)] Illustration:
+    \begin{center}
+        \scalebox{0.65}{\input{graph2c.tex}}
+    \end{center}
+    
+\end{enumerate}
+
+\section{Prioritätsinversion}
+
+\begin{enumerate}[\bf a)]
+    \item Illustration:
+    \begin{center}
+        \scalebox{0.4}{\input{graph3a.tex}}
+    \end{center}
+    
+    Die Ausführung von M wird immer wieder unterbrochen, da die anderen Prozesse in neue Perioden gehen und eine höhere Priorität als M haben. Da aber M die gleiche Ressource wie B benutzt, kann es unter Umständen zu Verhinderungen kommen, falls B auf halb-veränderte Dateien zugreifen will.
+     
+\end{enumerate}
+
+\end{document}
