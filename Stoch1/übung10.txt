@@ -1,0 +1,23 @@
+1.
+c)
+    P(Y_n = 0) + P(Y_n = n)
+    P(Y_n = 0) = (n OVER 0) * 0.5^0 * (1 - 0.5)^n-0 = 0.5^n
+
+2
+a)
+    (2n+2n)(2n+2n+2) /12
+  = 4n * (4n+2) /12
+  = n * (4n+2) / 3
+  = 4n² + 2n / 3
+
+3
+    3x3 = 9 (Teil eines schwarzen Feldes, in dem wir landen wollen)
+    9 * 32 = 288 (insg. Fläche auf dem Feld, in dem wir landen wollen)
+    31*31 = 961 (insg. Fläche des Schachfeldes minus unzulässigem Rand)
+    288/961 = 0.29969 (Chance dafür, im komplett schwarzen Feld zu landen)
+
+4
+    P(S=n) = (n-1 OVER m-1) p^m (1-p)^n-m
+
+E[S]= p^m * SIGMA_1^m n * (n-1 OVER m-1) (1-p)^n-m
+    = 
