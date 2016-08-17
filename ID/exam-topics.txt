@@ -1,0 +1,81 @@
+﻿Human model prozessor!!
+filterung und selektion
+top down/bottom up
+fließende übergänge
+gedächtnis
+multi speicher modell
+short term memory
+arbeitsgedächtnis
+primär & rezenzeffekt!
+erinnern vs erkennen!
+recognize act zyklus
+spurenverfallstheorie
+interferenztheorie
+kognitive belastung
+interaktionsformen
+betrachtungsebenen!
+human action cycle!
+reafferenzprinzip
+fitt's law!!
+klm-goms
+steering law!
+hick's law!
+interaktionsparadigmen (erklären, wenn unsicher)
+wimp (wofür verwendet) -> menus
+widgets!!
+interface-typen ##nicht relevant
+iterative modelle - prototyping
+ucd methode (6-7 lernen)
+abc (überschriften einsetzen)
+agile methoden (konzepte)
+modell view controller/presenter!! (im code erkennen)
+pact analyse (überschriften einsetzen/durchführen können)
+benutzer verstehen (ziele)!
+persona (beispiele schreiben können)!
+use cases
+szenarien
+aufgabenausführung (kognitiv)
+hta durchführen können!
+datenerhebungsarten (was wann wo/pro und con)!
+fragebögen (schlechtes erkennen)
+anforderungsanalyse
+kernpunkt-checkliste (wichtige erkennen)
+gestaltregeln
+sullivan satz!!
+gestaltgesetze erkennen!
+gestaltungskriterien!
+gibson und norman erkennen!
+affordance!!
+konzeptionelle/mentale modelle
+mappings
+design regelwerke!!! (beispiele nennen)
+gestaltgesetze (wichtige kennen, nähe, geschlossenheit, ...)!
+laterale hemmung (+überklasse)
+farbwirkung und formen ##nicht relevant
+goldener schnitt, gitter, goldene spirale, 1/3 regel!!!
+interne/externe konsistenz
+kreativität/brainstorming ##nicht relevant
+fehlerarten (beispiele)
+prototypen (high vs low fidelity)!
+sketchen können! (fluchtpunkte)
+wireframes vs mockups (wann sinnvoll)!
+wizard-of-oz
+prototyping framework (aufzählen können)
+PATTERNS!!!!!!!
+interface idiome
+verhaltensmuster
+usability erkären, wonach kann man messen!
+DECIDE grob
+evaluierung zu unterschiedlichen zeiten, wann was?
+quali vs quanti, subj vs obj, wann was?
+analytisch vs empirisch
+kognitive walkthrough
+heurischtissche evaluation (norman nielsen dix schneiderman/10 sachen aufzählen können/warum reichen 3-5)
+kontrolliertes experiment
+variablen/störfaktoren!!!!
+within-subject vs das andere, wann was?
+qualitative datenanalyse (ansatz)
+quantitative datenanalyse (deskriptive statistik schlagwörter)
+messniveau!
+Folie 179: die drei markierten kennen!
+syntax nicht können, aber sagen, ob richtig oder falsch
