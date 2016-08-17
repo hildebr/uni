@@ -1,0 +1,11 @@
+MessageMapping("/hello"): alle nachrichten an hello rufen greeting() auf
+SendTo("/topic/greetings"): übertrage das return an alle abonnierten
+
+Configuration: einfach Spring configuration class
+EnableWebSocketBroker: ermöglicht umgang mit nachrichten durch Broker
+  enableSimpleBroker: ermöglicht memory-based broker, der die greetings nachricht zurückträgt
+  auch "/app" für MessageMapping designieren
+registerStompEndpoints: registiert "/hello", damit man Fallback Options ermöglicht
+
+connect: benutzt SockJS und stomp.js f+r verbindung zu "/hello", wo GreetingsController wartet. wenn erfolgreich: abo
+sendName: nimmt den Namen des Users entgegen und benutzt STOMP client, um es nach "/app/hello" zu schicken
