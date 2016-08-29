@@ -1,0 +1,17 @@
+immer noch TODO:
+  Abwechselnde Antworten
+  Timeout
+  Win Condition
+  Nur für Teilnehmer
+
+Einarbeitung in den Service: Wie sieht die logik aus?
+fix für die anzeige: man sieht sich nun selbst immer als challenger
+  damit wurde auch "nur für teilnehmer" gefixt
+attack-defense statement zyklus implementiert
+abwechselnde antworten implementiert
+
+btw FUCK THYMELEAF
+
+scheiß auf timeout erstmal. win condiditon sollte ez sein, damit ist dann endlich rededuell durch
+
+refactoring ist ne gute sache, sollte wir mal machen
