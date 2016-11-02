@@ -1,0 +1,63 @@
+1)
+
+2 ?- mutter_von(charlotte, barbara).
+true.
+
+3 ?- vater_von(walter, andrea).
+true.
+
+4 ?- vater_von(X, magdalena).
+X = walter.
+
+5 ?- mutter_von(X, johannes).
+false.
+
+2)
+
+freie Variablen vs feste Werte
+
+3)
+
+Keine Mutter vorhanden
+
+4)
+
+7 ?- mutter_von(X, Y).
+X = marie,
+Y = hans ;
+X = marie,
+Y = helga ;
+X = julia,
+Y = otto ;
+X = barbara,
+Y = klaus ;
+X = barbara,
+Y = andrea ;
+X = charlotte,
+Y = barbara ;
+X = charlotte,
+Y = magdalena ;
+X = charlotte,
+Y = barbara.
+
+ᔀ8 ?- vater_von(X, Y).
+X = otto,
+Y = hans ;
+X = otto,
+Y = helga ;
+X = gerd,
+Y = otto ;
+X = johannes,
+Y = klaus ;
+X = johannes,
+Y = andrea ;
+X = walter,
+Y = barbara ;
+X = walter,
+Y = magdalena ;
+X = walter,
+Y = andrea.
+
+5)
+
+Kinder sind unbekannt oder nicht vorhanden, da false zurück kommt (closed world assumption).
