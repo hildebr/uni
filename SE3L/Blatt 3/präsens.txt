@@ -1,0 +1,19 @@
+1.
+a) Jeder Pfeil steht für ein muter/vater_von
+
+b) eltern_von(vater, mutter, kind): mehr Infos pro Eintrag, zusammenfassen von mutter/vater_von Kombos
+   mutter/vater_von(mutter/vater, list(kinder)): weniger Einträge in DB, mehr Aufwand beim Arbeiten in DB
+   tochter/sohn_von(sohn, eltern): gleiche Aussagen, aber jetzt Geschlecht von Kindern statt Eltern gekannt
+
+c) 1. Vorschlag: Pfeile von Eltern konvergieren, nur 1 Eltern-Pfeil zum Kind
+   2. Vorschlag: Pfeil eines Elternteils zeigt auf Liste, gleiche Liste für 2 treue Eltern möglich, sonst eine eigene Liste für jedes Elternteil
+   3. Vorschlag: Gleich wie Standard, Pfeilrichtung umgedreht
+
+d) Entitäten = Knoten, Relationen = Kanten. n-Relation = n-Kanten zwischen Knoten
+
+2.
+Findet zu einer Großmutter 2 Eltern (Mann und Frau), findet zu den 2 Eltern dann 2 (unterschiedliche) Kinder
+
+3.
+a) wird unübersichtlich
+b) hinreichend für beschränkte Datensätze, könnte nulls zur Entität "kein Kind" zeigen lassen
