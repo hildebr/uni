@@ -1,0 +1,42 @@
+1)
+
+
+
+2)
+
+2.1.
+aktuellerpreis(PRODUKT, PREIS) :- findall(JAHR, verkauft(PRODUKT,JAHR,_,_), LISTE),
+max_list(LISTE, MAX_JAHR), produkt(PRODUKT,_,TITEL,AUTOR,VERLAG,_,_), verkauft(PRODUKT,MAX_JAHR,PREIS,_).
+
+
+2.2.
+letztesKatalogJahr(MAX_JAHR) :- findall(JAHR, verkauft(pID,JAHR,_,_), LISTE), max_list(LISTE, MAX_JAHR).
+
+2.3.
+nichtAngebotenImBestand(PID) :- verkauft(PID,2016,_,0), produkt(PID,_,_,_,_,_,BESTAND), BESTAND>0.
+
+
+3)
+3.1.
+anzahlInKategorie(KATEGORIE, ANZAHL) :- aggregate_all(count, produkt(_,KATEGORIE,_,_,_,_,_), ANZAHL).
+
+3.2.
+inKategorieVerkauft(KATEGORIE, EXEMPLARE) :- findall(SUM, (produkt(PID, KATEGORIE,_,_,_,_,_),findall(ANZAHL, verkauft(PID,_,_,ANZAHL), LISTE), sumlist(LISTE, SUM)), SUMLIST), sumlist(SUMLIST, EXEMPLARE).
+
+3.3.
+#allgemeiner Verdienst
+preisnachlassInJahr(JAHR, NACHLASS) :- findall(ERLS, (verkauft(_,2016, PREIS, ANZAHL), ERLS is PREIS * ANZAHL), GELD), sumlist(GELD, EINNAHMEN), VORJAHR is 2016-1,
+findall(ERLS2, (verkauft(_,VORJAHR, PREIS2, ANZAHL2), ERLS2 is PREIS2 * ANZAHL2), GELD2), sumlist(GELD2, EINNAHMEN2), ERLOES is EINNAHMEN - EINNAHMEN2.
+
+4.1.
+unterkategorieZu(KATEGORIE, ULISTE) :- kategorie(ID,KATEGORIE,_), findall(NAME, kategorie(_, NAME, ID), ULISTE).
+
+4.2.
+duplikatKategorien(DLISTE) :- findall(X, (kategorie(ID1, X,_), kategorie(ID2, X,_), ID1 \= ID2), LISTE), sort(LISTE, DLISTE).
+
+4.3.
+kategorienOhneUnterkategorien(LISTE) :-  findall((KID,KATEGORIE),  (kategorie(KID, KATEGORIE,_), findall(NAME, kategorie(_,NAME,KID), ULISTE), length(ULISTE, 0)), LISTE).
+
+4.4.
+
+verletzteHirarchien :- findall((KID,NAME,UID), (kategorie(KID, NAME, UID), kategorie(KID, NAME, UID2), UID\=UID2), LISTE), sort(LISTE, SORTED).

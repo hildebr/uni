@@ -1,0 +1,91 @@
+\documentclass[a4paper, 11pt]{article}
+
+\usepackage{amsmath, amssymb, amstext, amsfonts, mathrsfs}	% Mathe
+\usepackage[applemac]{inputenc}	% Direkte Eingabe von Umlauten und anderen Diakritika
+\usepackage{hyperref}		%Anklicken von Links
+\usepackage[normalem]{ulem}	%weitere Formatierung von Schriften
+\usepackage{fancyhdr}		%sch\"one Kopf- und Fußzeilen
+\usepackage[ngerman]{babel}	%deutsche Sprache
+\usepackage{verbatim}
+
+\pagestyle{fancy}
+\lhead{SEIII: Logikprogrammierung\\}
+\chead{\ \\(L. Kruse: 6659482, A. Hildebrandt: 6688865, E. Baalmann: 6704003)}
+\rhead{\today\\}
+
+\parindent0pt
+
+\begin{document}
+\setcounter{section}{2}
+\section{\"Ubungsblatt: Relationale Datenbanken: Sichten und Transaktionen}
+\subsection{Terminologische Grundlagen}
+Syntax beschreibt die Struktur/Grammatik einer Sprache. Ein syntaktischer Fehler ist z.B. das Vergessen des Semikolons in einer Java-Zeile. \\
+Semantik beschreibt die tatsaechliche Bedeutung einer syntaktisch korrekten Zeile Code. Ein semantischer Fehler ist z.B. das Benutzen von Multiplikation, obwohl man fuer das gewollte Ergebnis eigentlich Addieren sollte. \\
+Operationale Semantik: Durch eine Relation werden die moeglichen Ausfuehrungsschritte als Paare (Zustand, Nachfolgezustand) beschrieben.\\
+Denotationelle Semantik: Die Semantik eines Programms wird durch eine Funktion zugewiesen.
+\subsection{Relationale Datenbanken}
+\subsection*{1.}
+\begin{verbatim}
+aktuellerpreis(TITEL, AUTOR, VERLAG, ID, PREIS) :- 
+findall(JAHR, verkauft(ID,JAHR,_,_), LISTE), max_list(LISTE, MAX_JAHR), 
+produkt(ID,_,TITEL,AUTOR,VERLAG,_,_), verkauft(ID,MAX_JAHR,PREIS,_).
+\end{verbatim}
+\subsection*{2.}
+\begin{verbatim}
+letztesKatalogJahr(ID, LETZTES_JAHR) :-
+findall(JAHR, verkauft(ID,JAHR,_,_), LISTE), max_list(LISTE, LETZTES_JAHR).
+\end{verbatim}
+\subsubsection*{3.}
+Unsere Interpretation eines nicht mehr angebotenen Produktes ist eine Verkaufsanzahl von 0 im Jahre 2016.
+\begin{verbatim}
+nichtAngebotenImBestand(ID) :- 
+verkauft(ID,2016,_,0), produkt(ID,_,_,_,_,_,BESTAND), BESTAND>0.
+\end{verbatim}
+\subsection{Aggregation in Relationalen Datenbanken}
+\subsection*{1.}
+\begin{verbatim}
+anzahlInKategorie(KATEGORIE, ANZAHL) :-
+aggregate_all(count, produkt(_,KATEGORIE,_,_,_,_,_), ANZAHL).
+\end{verbatim}
+\pagebreak
+\subsection*{2.}
+\begin{verbatim}
+inKategorieVerkauft(KATEGORIE, EXEMPLARE) :-
+findall(SUM, (produkt(PID, KATEGORIE,_,_,_,_,_),
+findall(ANZAHL, verkauft(PID,_,_,ANZAHL), LISTE), sumlist(LISTE, SUM)), SUMLIST), 
+sumlist(SUMLIST, EXEMPLARE).
+\end{verbatim}
+\subsection*{3.}
+Da nicht in jedem Jahr die gleiche Anzahl von Produkten verkauft wird, ist der Preisnachlass ja nicht der einzige Faktor fuer verringerte Verkaufserloese. Deshalb berechnet unser Praedikat die allgemeinen Einnahmen in einem Jahr und bildet dann die Differenz zum Vorjahr.
+\begin{verbatim}
+preisnachlassInJahr(JAHR, NACHLASS) :-
+findall(ERLS, (verkauft(_,JAHR, PREIS, ANZAHL), ERLS is PREIS * ANZAHL), GELD), 
+sumlist(GELD, EINNAHMEN), VORJAHR is JAHR-1, findall(ERLS2, 
+(verkauft(_,VORJAHR, PREIS2, ANZAHL2), ERLS2 is PREIS2 * ANZAHL2), GELD2),
+sumlist(GELD2, EINNAHMEN2), NACHLASS is EINNAHMEN - EINNAHMEN2.
+\end{verbatim}
+\subsection{Deduktive Datenbanken (1): Hierarchische Strukturen}
+\subsection*{1.}
+\begin{verbatim}
+unterkategorieZu(KATEGORIE, ULISTE) :-
+kategorie(ID,KATEGORIE,_), findall(NAME, kategorie(_, NAME, ID), ULISTE).
+\end{verbatim}
+\subsection*{2.}
+\begin{verbatim}
+duplikatKategorien(DLISTE) :- 
+findall(X, (kategorie(ID1,X,_), kategorie(ID2,X,_), ID1\=ID2), LISTE),
+sort(LISTE, DLISTE).
+\end{verbatim}
+\subsection*{3.}
+\begin{verbatim}
+kategorienOhneUnterkategorien(LISTE) :-
+findall((ID,KATEGORIE), (kategorie(ID, KATEGORIE,_),
+findall(NAME, kategorie(_,NAME,ID), ULISTE), length(ULISTE, 0)), LISTE).
+\end{verbatim}
+\subsection*{4.}
+\begin{verbatim}
+verletzteHirarchien(SORTED) :-
+findall((KID,NAME,UID), (kategorie(KID, NAME, UID), kategorie(KID, NAME, UID2),
+UID\=UID2), LISTE), sort(LISTE, SORTED).
+\end{verbatim}
+\end{document}
