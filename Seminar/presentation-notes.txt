@@ -1,0 +1,53 @@
+wie interagieren wir mit vr?
+klassische input methoden (controller) sind zweckdienlich, aber fühlen sich nicht immersiv an
+neue controller typen erlauben mehr freiheit und integrieren motion capturing
+oculus touch erahnt wurzeln, aber bereits sehr klein und handlich
+gest nichts mit klassischem controller gemeinsan, aber auch wenn die hand durch dieses gerät gut in vr dargestellt wird, gibt es kein feedback zur realen welt
+
+autor:
+xiaochi gu, forscher im bereich HCI, ceo von dextra robotics, mechanical&control engineer, studierte das auch in cambridge. keine weiteren arbeiten zu finden, scheint seine abschlussarbeit gewesen zu sein, seitdem nur als ceo tätig
+arbeit wurde nicht zitiert
+vorgestellt auf der CHI(kai) 2016, meißt angesehene Konferenz für hci, einer der top konferenzen für Informatik an sich, jährlich sei 1982, 
+durchgeführt von ACM (association for computing machinery), die erste und größte wissenschaftliche gesellschaft für informatik
+
+exoskelett: externe stützstruktur
+dexmo: exoskelett für die hand
+zweck:
+  motion capture (durch sensoren) -> präziser und intuitiver als herkömmliche kontrollmethoden (kamera/controller)
+  force feedback (durch x) -> simulation von gewicht/druck für ein realistisches gefühl von interaktion
+warum gerade dexmo? -> leicht, kostengünstig, kompakt, zuverlässig und sicher
+wie? -> statt drehmoment an jedem gelenk gibt es servo einheiten um bewegung gezielt einzuschränken
+3 vorteile an Dexmo:
+1)klein und erschwinglich, da drehmoment nicht durch komplexe motoren generiert wird
+2)alle biegungen vom nutzer werden direkt auf den Starrkörper ausgeübt statt auf einen motor, wodruch die konstruktion langlebiger ist
+3)sicher, da keine reale kraft für force feedback ausgeübt wird. selbst bei störungen kann die maschine den user nicht verletzten
+
+frühere versuche:
+Phantom: stift an einem roboterarm, schreiben/zeichnen in der luft, präzise für den aufgabenbereich, aber nimmt viel platz auf dem arbeitsplatz ein und ist nicht mobil
+Rutgers Master II ND: druckluft Aktoren in der Handfläche sorgen für force feedback, indem die Finger direkt getrieben werden, infrarotsensor für motion capturing, sehr kostenintensiv, eher für unternehmen/militär/medizin, theoretisches sicherheitsrisiko durch das treiben der finger
+
+design: besteht aus haupt-controller(auf dem handrücken), fingerkappen, ff-einheit(zwischen controller und fingerkappen) und verbindungsstücke
+
+ffu: kern des designs, beinhaltet sensor und antriebs module. sperräder werden von sensoren beobachtet, auch kleine bewegungen werden direkt an den controller übertragen. bei virtueller kollision (ball von der hand umschlossen), erhält der controller ein signal vom rechner und fährt die schieberegler aus, um die sperräder zu blockieren. antwortzeit hängt vom stellmotor ab, aber ein kernloser motor sorgt schon für 50ms
+
+motion capture: solange keine kollision vorliegt, sind alle komponente frei beweglich, also keine einschränkung des nutzers, egal ob er eine faust ballt oder die finger spreitzt. sensoren sammeln 3-4 werte für daumen und 1-2 für die restlichen finger. freiheitsgrad (zahl der voneinander ubabhängigen bewegungsmöglichkeiten) von dexmo war 16 (geringer als menschliche hände), also erhält man kein 100% genaues motion capturing, aber 11 freiheitsgrade sind bereits ausreichend für eine zufriedenstellende rekonstruktion von knochenbewegung (deswegen wurde freiheitsgrad bei dexmo auch reduziert)
+
+design trade-offs: durch die kompaktheit kein netzteil nötig, 4 stunden laufzeit mit einer 800mAh batterie (herkömmliche batterie ausm einzelhandel). 
+wiegt nur 270g (vgl. andere exoskelette >600g). 
+modulare aufbau sorg für preiswerte anfertigung (vgl. ein einzelner motor von high-end haptics kostet mehr als das komplette dexmo).
+robust, da alle wichtigen mechanismen von einem gehäuse umschlossen sind statt offenenliegende flaschenzug-motoren zu nutzen
+nachteil: nur binärer haptischer feedback, also ob etwas da ist oder nicht. keine aussage über nachgiebigkeit (stein gegen gummiente), aber da jeder finger eine FFU hat, kann man wenigstens formen von ungewöhnlichen objekten erfühlen
+auch die verzögerung ist ein problem, jede FFU braucht zwischen 20-40ms für einen effekt, für haptische geräte will man generell unter 30ms bleiben
+
+seit der arbeit gibt es bereits weiterentwicklungen, sodass auch nachgiebigkeit simuliert wird
+
+evaluation: wirksamkeit wurde in informellen labor experimenten verifiziert. ziel der evaluation war zu zeigen, dass dexmo von typischen end-nutzern benutzt werden kann
+method: bogenschießen in vr, 20 probanten mit unterschiedlichen hintergründen, test auf die null-these, dass ff die fehlerrate nicht signifikant verbessert. within-subject (alle testen beides) mit einer unabhängigen variable (fehlerrate) und 2 level (ff und kein ff). zuerst 10 pfeile mit FF schießen, dann 1 stunde pause, dann 10 pfeile ohne ff. andere reihenfolge nicht getestet, wegen 3 gründen:
+1. eine stunde pause, 2. simples spiel indem lernen nicht viel bringt, 3. wenn die null these stimmt, wäre reihenfolge eh egal
+ergebnisse: mittlere fehlerquote ohne FF: 61%, mit FF: 44%
+nicht nur signifikant, sondern wesentliche verbesserung
+
+“this is really cool”, “it
+feels very real”, “I never had this kind of experience before”,
+“this is very light, it’s not as uncomfortable as I expected”
+and “this looks very futuristic”
