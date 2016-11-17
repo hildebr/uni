@@ -1,0 +1,21 @@
+1.
+a) kind_von(? eltern, - kinder) :- findall(kind, (mutter_von(eltern, kind) + vater_von(eltern, kind)) , kinder).
+   enkelkind_von(? gEltern,  - enkellist) :- findall(enkel, kind_von(gEltern, elternL), kind_von(elternL, enkel)), enkellist).
+
+b) Peter, Klaus, Andrea
+
+c) Prädikatreihenfolge bei großeltern -> eltern -> enkel
+
+2.
+   nachfahre_von(? vorfahre, - nachfahren) :- kind_von(nachfahre, vorfahren).
+   nachfahre_von(N, V) :- kind_von(N, E), nachfahre_von(E, V).
+
+   a)
+   b) ist richtungsunabhängig
+
+3.
+   v(X,Y) :- nf(X,Y).
+   v(X,Y) :- nf(Y,X).
+   v(X,Y) :- nf(X,V),nf(Y,V).
+
+   
