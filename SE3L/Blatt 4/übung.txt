@@ -1,0 +1,50 @@
+Aufgabe 1:
+
+Geburtsjahr: funktional
+Nachbar: symmetrisch
+Leichter: transitiv
+Kleinergleich: reflexiv, transitiv
+Mannschaft: symmetrisch, reflexiv
+Kongruent: symmetrisch, reflexiv, transitiv
+
+Aufgabe 2:
+
+1.
+oberkategorieZu(ID, OBER_K_NAME, OBER_K_ID) :- kategorie(ID,_, OBER_K_ID), kategorie(OBER_K_ID, OBER_K_NAME,_).
+oberkategorieZu(ID, OBER_K_NAME, OBER_K_ID) :- kategorie(ID,_,NEXT_K_ID), oberkategorieZu(NEXT_K_ID, OBER_K_NAME, OBER_K_ID).
+
+2.
+spitzeZuKategorie(ID, KATLIST3) :- findall(NAME, oberkategorieZu(ID, NAME, _), KATLIST), reverse(KATLIST, KATLIST2), append(KATLIST2, [A], KATLIST3), kategorie(ID, A,_).
+
+3.
+produkteZuKategorieMain(ID, MainListe) :- findall(PListe, produkteZuKategorie(ID, PListe), ListenListe), flatten(ListenListe, MainListe).
+produkteZuKategorie(ID, PListe) :- findall(PRODUKT, produkt(_,ID,PRODUKT,_,_,_,_), PListe).
+produkteZuKategorie(ID, PListe) :- kategorie(UID,_, ID), produkteZuKategorie(UID, PListe).
+
+4.
+produktanzahlZuKategorie(ID, ANZAHL) :- produkteZuKategorieMain(ID, LISTE), length(LISTE, ANZAHL).
+
+5.
+verkauftInKategorie(ID, FINAL) :- findall(SUMLIST, (findall(SUM, (findall(ANZAHL, (verkauft(PID,_,_,ANZAHL), produkt(PID, ID,_,_,_,_,_)), LISTE), sumlist(LISTE, SUM)), SUMLIST)), ANZAHLLISTE), sumlist(ANZAHLLISTE, FINAL).
+verkauftInKategorie(ID, FINAL) :- kategorie(UID,_,ID), verkauftInKategorie(UID, FINAL).
+
+Aufgabe 3:
+1.
+verbindungrechts()......
+verbindungsrechts().....
+verbindunglinks()......
+verbindunglinks()......
+verbindung() :- finall(X, rechts/links, booleanliste), booleanliste>1 -> true.
+
+2.
+freiesGleis true wenn belegung nicht auf b
+belegt(gleis, X) X ist b, wenn gleis belegt (mit assert und retract werte setzen)
+einbau in 1.
+
+3.
+zuglänge wird in swi-prolog zur innersten verbindung/2 mitgegeben. wird dann gegen gleislänge kontrolliert
+test nur auf haltegleisen, da gleise zwischen 2 weichen keine längeninfo haben
+
+4.
+ankunft(?Von_Ort, ?Gleis, +Zuglänge) :- einfahrt(GleisA, Von_Ort), verbindung(GleisA, Gleis, Zuglänge).
+abfahrt(?Nach_Ort, ?Gleis, +Zuglänge) :- ausfahrt(GleisA, Nach_Ort), verbindung(Gleis, GleisA, Zuglänge).

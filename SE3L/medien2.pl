@@ -6,6 +6,16 @@ duplikatKategorien(DLISTE) :- findall(X, (kategorie(ID1, X,_), kategorie(ID2, X,
 kategorienOhneUnterkategorien(LISTE) :-  findall((ID,KATEGORIE),  (kategorie(ID, KATEGORIE,_), findall(NAME, kategorie(_,NAME,ID), ULISTE), length(ULISTE, 0)), LISTE).
 verletzteHirarchien(SORTED) :- findall((KID,NAME,UID), (kategorie(KID, NAME, UID), kategorie(KID, NAME, UID2), UID\=UID2), LISTE), sort(LISTE, SORTED).
 
+oberkategorieZu(ID, OBER_K_NAME, OBER_K_ID) :- kategorie(ID,_, OBER_K_ID), kategorie(OBER_K_ID, OBER_K_NAME,_).
+oberkategorieZu(ID, OBER_K_NAME, OBER_K_ID) :- kategorie(ID,_,NEXT_K_ID), oberkategorieZu(NEXT_K_ID, OBER_K_NAME, OBER_K_ID).
+spitzeZuKategorie(ID, KATLIST3) :- findall(NAME, oberkategorieZu(ID, NAME, _), KATLIST), reverse(KATLIST, KATLIST2), append(KATLIST2, [A], KATLIST3), kategorie(ID, A,_).
+produkteZuKategorieMain(ID, MainListe) :- findall(PListe, produkteZuKategorie(ID, PListe), ListenListe), flatten(ListenListe, MainListe).
+produkteZuKategorie(ID, PListe) :- findall(PRODUKT, produkt(_,ID,PRODUKT,_,_,_,_), PListe).
+produkteZuKategorie(ID, PListe) :- kategorie(UID, _, ID), produkteZuKategorie(UID, PListe).
+produktanzahlZuKategorie(ID, ANZAHL) :- produkteZuKategorieMain(ID, LISTE), length(LISTE, ANZAHL).
+verkauftInKategorie(ID, FINAL) :- findall(SUMLIST, (findall(SUM, (findall(ANZAHL, (verkauft(PID,_,_,ANZAHL), produkt(PID, ID,_,_,_,_,_)), LISTE), sumlist(LISTE, SUM)), SUMLIST)), ANZAHLLISTE), sumlist(ANZAHLLISTE, FINAL).
+verkauftInKategorie(ID, FINAL) :- kategorie(UID,_,ID), verkauftInKategorie(UID, FINAL).
+
 % kategorie(Id_Unterkategorie,Name_Unterkategorie,Id_Oberkategorie)
 kategorie(1,buch,0).
 kategorie(2,ebuch,0).
@@ -41,7 +51,11 @@ produkt(23457,11,spuren_im_schnee,wolf_michael,meister,2012,1).
 produkt(23458,8,blutrache,wolf_michael,meister,2013,1).
 
 produkt(34567,19,hoffnung,sand_molly,audio,2011,51).
-produkt(34568,9,winterzeit,wolf_michael,audio,2009,16).
+
+produkt(59385,1,winterzeit,wolf_michael,audio,2009,16).
+produkt(59382,4,winterzeit,wolf_michael,audio,2009,16).
+produkt(59389,7,winterzeit,wolf_michael,audio,2009,16).
+
 
 % verkauft(PId,Jahr,Preis,Anzahl).
 verkauft(12345,2009,39,71).
