@@ -1,0 +1,69 @@
+Aufagbe 1
+a)B=m, C=p
+b)nicht, weil P nicht gleich 1 und 2 sein kann
+c)R=t(t),S=s,T=t
+d)nicht, weil q/4 und q/3 nicht unifizieren können
+e)nicht, weil doppelte negation in prolog kacke ist
+f)True = not(false)
+
+Aufgabe 2
+1.
+a)
+peano2int(0,0).
+peano2int(s(P),X) :- peano2int(P, X1), X is X1 + 1.
+
+b)
+ht(s(_),0).
+ht(0,0).
+ht(s(X),s(Y)) :- ht(X,Y).
+
+c)
+dB2(0, Q, R) :- Q is 0, R is 0.
+dB2(s(0),Q,R) :- Q is 0, R=s(0).
+dB2(s(s(X)), Q, R) :- dB2(X, Q1, R), Q=s(Q1).
+
+d)
+max(A,B,M) :- ht(A,B), M=A.
+max(A,B,M) :- ht(B,A), M=A.
+
+e)
+pAdd(0, B, R) :- R = B.
+pAdd(s(A), B, S) :- pAdd(A,s(B),S).
+
+wertOderNull(_,0,E) :- E = 0.
+wertOderNull(W,_,E) :- E = W.
+
+produkt(0,_,PRODUKT) :- PRODUKT = 0.
+produkt(s(0),MPKAND,PRODUKT) :- PRODUKT = MPKAND.
+
+produkt(MPKTOR,MPKAND,PRODUKT) :-
+	dB2(MPKTOR,MPKTOR2,REST),
+	dB2(MPKAND2,MPKAND,0),
+	produkt(MPKTOR2,MPKAND2,PRODUKT2),
+	wertOderNull(MPKAND,REST,A),
+	pAdd(PRODUKT2,A,PRODUKT).
+
+2.
+??????
+
+Aufgabe 3
+einordnungH(Name, Art, Oberklasse):-sub(Name,_,Oberklasse), sub(Oberklasse, Art, _).
+einordnungH(Name, Art, Oberklasse):-sub(Name,_,Oberklasse), reich(Oberklasse), Art = reich.
+einordnungH(Name, Art, Oberklasse):-sub(Name,_,Unterklasse), einordnungH(Unterklasse, Art, Oberklasse).
+einordnung(Name, L) :- findall((Art, Oberklasse), einordnungH(Name,Art,Oberklasse), L).
+
+Aufgabe 4
+1.
+anzahl in innerester Rekursion
+2.
+findall um die verbindung in ankunft/abfahrt, min_list auf die findall-Liste
+
+Aufgabe 5
+Systematik: Alle Beziehungen werden durch Sub spezifiziert, außerdem wird die Gliederungsebene angegeben. Die obersten Klassen haben kein sub-Prädikat, sondern sind durch "reich" spezifiziert.
+Weichen: Weichen  haben ein Verbindungsstück im Hilfsprädikat "weiche". Es wird keine direkte Verbindung zu Nachbarn in der "gleis"-Definition angegeben.
+Medien: Die Kategorien werden durch IDs umschrieben, die sich wiederum auf ihre Oberkategorien beziehen. Die oberste Kategorie hat eine "leere" ID als Oberkategorie, und zwar die Null.
+Familie: Direkte Verwandschaftsbeziehungen werden angegeben.
+
+Terminierungssicher: Enthält eine Abbruchbedingung und keine Zyklen.
+Beispiele, bei denen die Bedingungen nicht erfüllt sind:
+beispiel(X) :- X1 is X + 1, beispiel(X1).
