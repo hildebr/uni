@@ -1,0 +1,209 @@
+%%% packages %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%\usepackage{tgheros}
+%\renewcommand*\familydefault{\sfdefault} %% Only if the base font of the document is to be sans serif
+
+\usepackage[T1]{fontenc}        % euro quality fonts [T1] (togeth. w/ textcomp)
+\usepackage{textcomp, amssymb}  % additional symbols (there are more packages)
+\usepackage{setspace}           % doublespacing
+\usepackage{anysize}            % margin package sets tighter margins
+\usepackage[all]{xy}            % creating figures within latex
+\usepackage{float}
+\usepackage[tight]{subfigure}% subfigures: figures within figures
+%\usepackage{iflang}
+
+%\marginsize{1.2in}{0.9in}{1.1in}{0.9in} % small margins
+\marginsize{1.2in}{0.9in}{0.5in}{1.5in} % small margins
+
+\usepackage{ifpdf}              % if pdflatex then ... else ...
+\ifpdf
+  \pdfadjustspacing=1           % make pdflatex behave like latex
+  \usepackage{aeguill}          % PS converted CM fonts for better acro preview
+  \usepackage[pdftex]{graphicx} % graphics packages
+  \usepackage[pdftex]{color}    % color packages
+  \usepackage[pdftex]{thumbpdf} % create thumbnails (run thumbpdf as well)
+  \usepackage[pdftex,
+		hidelinks = true,
+		colorlinks = false,%
+              pagebackref=true, % bibliography -> text
+              linktocpage=true, % toc etc: make page number active (not name)
+              plainpages=false, % distinguish roman and arabic pagenumbers
+              bookmarksopen=true,%
+              bookmarksnumbered=true,%
+              pdfauthor={\autor},%
+              pdftitle={\arbeitstitel},% 
+              pdfsubject={\arbeitstitel},%
+              pdfkeywords={\arbeitstitel},%
+             ]{hyperref}       % clickabe references
+\else
+  \usepackage[hypertex,
+              plainpages=false, % distinguish roman and arabic pagenumbers
+              linktocpage=true, % toc etc: make page number active (not name)
+             ]{hyperref}        % clickabe references in .dvi
+                                % purposely included before color package
+  \usepackage[dvips]{color}     % color packages; needed by xy
+  \usepackage[dvips]{graphicx}  % graphics packages
+\fi
+
+\usepackage{listings}
+
+
+
+
+%% Required package.
+\usepackage[ngerman,english]{babel}
+\usepackage{ifthen}
+
+%% TeX function that generates the language commands.
+\def\localedef#1#2{
+\ifthenelse{ \equal{\locale}{#1} }{
+  \selectlanguage{#2}
+  \expandafter\def\csname#1\endcsname ##1{##1}
+  }{
+  \expandafter\def\csname#1\endcsname ##1{}
+  }
+}
+
+
+
+% hyperref must be the second last package and glossary the last package
+
+% index
+\usepackage{makeidx}                       % for \printindex
+\makeindex                                 % creates paper.idx index file
+
+% glossary
+%\usepackage[style=super, cols=3]{glossary} % for \printclossary
+%\makeglossary                              % creates paper.glo glossary file
+
+
+%%% style and finetuning %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\pagestyle{plain}               % pagestyle: headings, empty, plain
+
+%%% document %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%% beginning
+\newcommand{\start}[2]{
+	\begin{document}
+	\ifx\german\undefined
+		\selectlanguage{english}
+		\providecommand\locale{en}
+		\else
+		\selectlanguage{ngerman}
+		\providecommand\locale{de}
+	\fi
+\localedef{de}{ngerman}
+\localedef{en}{english}
+\localedef{fr}{frenchb}
+	\pagenumbering{roman} % titlepage does not get a number - that's odd, but good.
+
+	\ifpdf\pdfbookmark[1]{Title}{label:title}\fi              
+	
+	% do not use titlepage environment, because it does not increase page counter.
+
+\thispagestyle{empty}%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+\begin{center}
+
+%\Large  Human-Computer Interaction\\
+\vspace{0.2cm}
+\begin{figure}[h!] %  figure placement: here, top, bottom, or page
+	\hspace{-2.32cm}
+	\vspace{-2cm}
+     \includegraphics[width=9.22cm]{images/up-uhh-logo-u-2010-u-png.png} 
+\end{figure}
+	\vspace{4cm}
+
+
+\Huge \textbf{\arbeitstitel} \\
+
+\vspace{1.0cm}
+
+\Large
+\arbeitstyp \de{ im Studiengang}\en{ in the course} \studycourse \\
+
+\vspace{2.0cm}
+
+\large \de{Autor}\en{Author}:\\
+\Large \textbf{\autor} \\
+\vspace{0.5cm}
+\large \de{Matrikel}\en{Matriculation Number}: \matrikel
+
+\vspace{2.0cm}
+
+\large
+
+%\hspace*{1.5cm}
+Human-Computer Interaction\\
+\de{Fachbereich Informatik}\en{Department of Computer Science}\\~\\
+\begin{tabular}{ll}
+\de{Erstgutachter}\en{First Reviewer}:	& \erstgutachter\\
+\de{Zweitgutachter}\en{Second Reviewer}:		&\zweitgutachter
+\ifx\betreuer\undefined
+\\
+\else
+\\ \de{Betreuer}\en{Supervisor}:	& \betreuer
+\fi
+\end{tabular}
+
+\vspace{1.5cm}
+
+
+Hamburg, 26. Februar 2017
+%\end{spacing}
+
+\end{center}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+	%{\doublespacing
+	%\newpage\ifpdf\pdfbookmark[1]{Acknowledgement}{label:ack}\fi\input{acknowledge.tex}
+	\ifthenelse{\equal{#1}{1}}
+	{\newpage\ifpdf\pdfbookmark[1]{Abstract}{label:abst}\fi \input{abstract.tex}}
+	{}
+	
+	\ifthenelse{\equal{#2}{1}}
+	{\newpage\ifpdf\pdfbookmark[1]{Zusammenfassung}{label:abstGER}\fi \input{abstractGER.tex}}
+	{}
+	%\newpage\ifpdf\pdfbookmark[1]{Abstract}{label:abst}\fi     \input{abstract.tex}
+	%}
+
+
+	\newpage\ifpdf\pdfbookmark[1]{Table of Contents}{label:toc}\fi \tableofcontents
+
+	{\doublespacing
+	\newpage\pagenumbering{arabic}
+	}
+	
+	
+}
+\headsep.5cm
+
+\newcommand{\sourcecode}[1]{
+\lstinputlisting[caption={#1},label=lst:#1,language=C++,frame=single,showstringspaces=false,basicstyle={\ttfamily \small},breaklines=true,breakatwhitespace=true,tabsize=4,numbers=left,stepnumber=5,numberfirstline=false,firstnumber=1,numberstyle={\scriptsize}]{#1}
+}
+
+
+
+
+%% beginning
+\newcommand{\finish}{
+	% Bibliography and Glossary          (\phantomsection is needed for hyperlinks)
+
+	\newpage\phantomsection%
+	\bibliographystyle{alpha}\bibliography{references}
+
+
+	\newpage\phantomsection%
+	\printindex
+
+	%\newpage\phantomsection%
+	%\addcontentsline{toc}{chapter}{Glossary}                  % add Glossary to TOC
+	%\printglossary
+	\newpage
+	\newpage\input{erklaerung.tex}
+	\end{document}
+}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
