@@ -1,14 +1,12 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.17 (TeX Live 2016/Arch Linux) (preloaded format=latex 2017.6.26)  29 JUN 2017 21:01
+This is pdfTeX, Version 3.14159265-2.6-1.40.16 (MiKTeX 2.9 64-bit) (preloaded format=pdflatex 2016.4.10)  29 JUN 2017 23:15
 entering extended mode
- restricted \write18 enabled.
- %&-line parsing enabled.
-**dami.tex
-(./dami.tex
-LaTeX2e <2017/01/01> patch level 3
-Babel <3.9r> and hyphenation patterns for 83 language(s) loaded.
-(/usr/share/texmf-dist/tex/latex/base/article.cls
+**./dami.tex
+(dami.tex
+LaTeX2e <2016/03/31>
+Babel <3.9q> and hyphenation patterns for 70 language(s) loaded.
+("C:\Program Files\MiKTeX 2.9\tex\latex\base\article.cls"
 Document Class: article 2014/09/29 v1.4h Standard LaTeX document class
-(/usr/share/texmf-dist/tex/latex/base/size11.clo
+("C:\Program Files\MiKTeX 2.9\tex\latex\base\size11.clo"
 File: size11.clo 2014/09/29 v1.4h Standard LaTeX file (size option)
 )
 \c@part=\count79
@@ -23,30 +21,38 @@ File: size11.clo 2014/09/29 v1.4h Standard LaTeX file (size option)
 \belowcaptionskip=\skip42
 \bibindent=\dimen102
 )
-(/usr/share/texmf-dist/tex/latex/graphics/graphicx.sty
+("C:\Program Files\MiKTeX 2.9\tex\latex\graphics\graphicx.sty"
 Package: graphicx 2014/10/28 v1.0g Enhanced LaTeX Graphics (DPC,SPQR)
 
-(/usr/share/texmf-dist/tex/latex/graphics/keyval.sty
+("C:\Program Files\MiKTeX 2.9\tex\latex\graphics\keyval.sty"
 Package: keyval 2014/10/28 v1.15 key=value parser (DPC)
 \KV@toks@=\toks14
 )
-(/usr/share/texmf-dist/tex/latex/graphics/graphics.sty
-Package: graphics 2016/10/09 v1.0u Standard LaTeX Graphics (DPC,SPQR)
+("C:\Program Files\MiKTeX 2.9\tex\latex\graphics\graphics.sty"
+Package: graphics 2016/01/03 v1.0q Standard LaTeX Graphics (DPC,SPQR)
 
-(/usr/share/texmf-dist/tex/latex/graphics/trig.sty
+("C:\Program Files\MiKTeX 2.9\tex\latex\graphics\trig.sty"
 Package: trig 2016/01/03 v1.10 sin cos tan (DPC)
 )
-(/usr/share/texmf-dist/tex/latex/graphics-cfg/graphics.cfg
-File: graphics.cfg 2016/06/04 v1.11 sample graphics configuration
+("C:\Program Files\MiKTeX 2.9\tex\latex\00miktex\graphics.cfg"
+File: graphics.cfg 2010/04/23 v1.9 graphics configuration of TeX Live
 )
-Package graphics Info: Driver file: dvips.def on input line 99.
+Package graphics Info: Driver file: pdftex.def on input line 95.
 
-(/usr/share/texmf-dist/tex/latex/graphics-def/dvips.def
-File: dvips.def 2016/07/10 v3.1a Driver-dependent file (DPC,SPQR)
+("C:\Program Files\MiKTeX 2.9\tex\latex\pdftex-def\pdftex.def"
+File: pdftex.def 2011/05/27 v0.06d Graphics/color for pdfTeX
+
+("C:\Program Files\MiKTeX 2.9\tex\generic\oberdiek\infwarerr.sty"
+Package: infwarerr 2010/04/08 v1.3 Providing info/warning/error messages (HO)
+)
+("C:\Program Files\MiKTeX 2.9\tex\generic\oberdiek\ltxcmds.sty"
+Package: ltxcmds 2011/11/09 v1.22 LaTeX kernel commands for general use (HO)
+)
+\Gread@gobject=\count87
 ))
 \Gin@req@height=\dimen103
 \Gin@req@width=\dimen104
-) (./dami.aux)
+) (dami.aux)
 \openout1 = `dami.aux'.
 
 LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 3.
@@ -61,36 +67,194 @@ LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 3.
 LaTeX Font Info:    ... okay on input line 3.
 LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 3.
 LaTeX Font Info:    ... okay on input line 3.
+
+("C:\Program Files\MiKTeX 2.9\tex\context\base\supp-pdf.mkii"
+[Loading MPS to PDF converter (version 2006.09.02).]
+\scratchcounter=\count88
+\scratchdimen=\dimen105
+\scratchbox=\box26
+\nofMPsegments=\count89
+\nofMParguments=\count90
+\everyMPshowfont=\toks15
+\MPscratchCnt=\count91
+\MPscratchDim=\dimen106
+\MPnumerator=\count92
+\makeMPintoPDFobject=\count93
+\everyMPtoPDFconversion=\toks16
+) ("C:\Program Files\MiKTeX 2.9\tex\generic\oberdiek\pdftexcmds.sty"
+Package: pdftexcmds 2011/11/29 v0.20 Utility functions of pdfTeX for LuaTeX (HO
+)
+
+("C:\Program Files\MiKTeX 2.9\tex\generic\oberdiek\ifluatex.sty"
+Package: ifluatex 2010/03/01 v1.3 Provides the ifluatex switch (HO)
+Package ifluatex Info: LuaTeX not detected.
+)
+("C:\Program Files\MiKTeX 2.9\tex\generic\oberdiek\ifpdf.sty"
+Package: ifpdf 2011/01/30 v2.3 Provides the ifpdf switch (HO)
+Package ifpdf Info: pdfTeX in PDF mode is detected.
+)
+Package pdftexcmds Info: LuaTeX not detected.
+Package pdftexcmds Info: \pdf@primitive is available.
+Package pdftexcmds Info: \pdf@ifprimitive is available.
+Package pdftexcmds Info: \pdfdraftmode found.
+)
+("C:\Program Files\MiKTeX 2.9\tex\latex\oberdiek\epstopdf-base.sty"
+Package: epstopdf-base 2010/02/09 v2.5 Base part for package epstopdf
+
+("C:\Program Files\MiKTeX 2.9\tex\latex\oberdiek\grfext.sty"
+Package: grfext 2010/08/19 v1.1 Manage graphics extensions (HO)
+
+("C:\Program Files\MiKTeX 2.9\tex\generic\oberdiek\kvdefinekeys.sty"
+Package: kvdefinekeys 2011/04/07 v1.3 Define keys (HO)
+))
+("C:\Program Files\MiKTeX 2.9\tex\latex\oberdiek\kvoptions.sty"
+Package: kvoptions 2011/06/30 v3.11 Key value format for package options (HO)
+
+("C:\Program Files\MiKTeX 2.9\tex\generic\oberdiek\kvsetkeys.sty"
+Package: kvsetkeys 2012/04/25 v1.16 Key value parser (HO)
+
+("C:\Program Files\MiKTeX 2.9\tex\generic\oberdiek\etexcmds.sty"
+Package: etexcmds 2011/02/16 v1.5 Avoid name clashes with e-TeX commands (HO)
+Package etexcmds Info: Could not find \expanded.
+(etexcmds)             That can mean that you are not using pdfTeX 1.50 or
+(etexcmds)             that some package has redefined \expanded.
+(etexcmds)             In the latter case, load this package earlier.
+)))
+Package grfext Info: Graphics extension search list:
+(grfext)             [.png,.pdf,.jpg,.mps,.jpeg,.jbig2,.jb2,.PNG,.PDF,.JPG,.JPE
+G,.JBIG2,.JB2,.eps]
+(grfext)             \AppendGraphicsExtensions on input line 452.
+)
 Missing character: There is no â in font cmbx12!
 Missing character: There is no € in font cmbx12!
 Missing character: There is no ¢ in font cmbx12!
 
+<1-overview.jpg, id=1, 1927.2pt x 1204.5pt>
+File: 1-overview.jpg Graphic file (type jpg)
+ <use 1-overview.jpg>
+Package pdftex.def Info: 1-overview.jpg used on input line 11.
+(pdftex.def)             Requested size: 385.43318pt x 240.89574pt.
 
-! LaTeX Error: Cannot determine size of graphic in ambience-added.jpg (no Bound
-ingBox).
+Overfull \hbox (25.43318pt too wide) in paragraph at lines 11--12
+[][] 
+ []
 
-See the LaTeX manual or LaTeX Companion for explanation.
-Type  H <return>  for immediate help.
- ...                                              
-                                                  
-l.11 ...udegraphics[scale=0.2]{ambience-added.jpg}
-                                                  
-? 
-! Emergency stop.
- ...                                              
-                                                  
-l.11 ...udegraphics[scale=0.2]{ambience-added.jpg}
-                                                  
-Try typing  <return>  to proceed.
-If that doesn't work, type  X <return>  to quit.
+[1
 
- 
+{C:/Users/Alex/AppData/Local/MiKTeX/2.9/pdftex/config/pdftex.map} <./1-overview
+.jpg>] <ambience-mf-v2.jpg, id=9, 1927.2pt x 1204.5pt>
+File: ambience-mf-v2.jpg Graphic file (type jpg)
+
+<use ambience-mf-v2.jpg>
+Package pdftex.def Info: ambience-mf-v2.jpg used on input line 23.
+(pdftex.def)             Requested size: 385.43318pt x 240.89574pt.
+
+Overfull \hbox (25.43318pt too wide) in paragraph at lines 23--24
+[][] 
+ []
+
+[2 <./ambience-mf-v2.jpg>] <ambience-rules.jpg, id=13, 1927.2pt x 1204.5pt>
+File: ambience-rules.jpg Graphic file (type jpg)
+
+<use ambience-rules.jpg>
+Package pdftex.def Info: ambience-rules.jpg used on input line 34.
+(pdftex.def)             Requested size: 385.43318pt x 240.89574pt.
+
+Overfull \hbox (25.43318pt too wide) in paragraph at lines 34--35
+[][] 
+ []
+
+[3 <./ambience-rules.jpg>]
+<ambience-surface-s.jpg, id=17, 1927.2pt x 1204.5pt>
+File: ambience-surface-s.jpg Graphic file (type jpg)
+
+<use ambience-surface-s.jpg>
+Package pdftex.def Info: ambience-surface-s.jpg used on input line 45.
+(pdftex.def)             Requested size: 289.06754pt x 180.6672pt.
+
+<ambience-surface-f.jpg, id=18, 1927.2pt x 1204.5pt>
+File: ambience-surface-f.jpg Graphic file (type jpg)
+
+<use ambience-surface-f.jpg>
+Package pdftex.def Info: ambience-surface-f.jpg used on input line 49.
+(pdftex.def)             Requested size: 289.06754pt x 180.6672pt.
+ [4 <./ambience-surface-s.jpg> <./ambience-surface-f.jpg>]
+Missing character: There is no â in font cmbx12!
+Missing character: There is no € in font cmbx12!
+Missing character: There is no ¢ in font cmbx12!
+ <vg-mf-sum.jpg, id=22, 1927.2pt x 1204.5pt>
+File: vg-mf-sum.jpg Graphic file (type jpg)
+ <use vg-mf-sum.jpg>
+Package pdftex.def Info: vg-mf-sum.jpg used on input line 62.
+(pdftex.def)             Requested size: 289.06754pt x 180.6672pt.
+
+<vg-mf-out.jpg, id=23, 1927.2pt x 1204.5pt>
+File: vg-mf-out.jpg Graphic file (type jpg)
+ <use vg-mf-out.jpg>
+Package pdftex.def Info: vg-mf-out.jpg used on input line 66.
+(pdftex.def)             Requested size: 289.06754pt x 180.6672pt.
+ [5 <./vg-mf-sum.jpg> <./vg-mf-out.jpg>] <vg-mf-gameplay.jpg, id=27, 1927.2pt x
+ 1204.5pt>
+File: vg-mf-gameplay.jpg Graphic file (type jpg)
+
+<use vg-mf-gameplay.jpg>
+Package pdftex.def Info: vg-mf-gameplay.jpg used on input line 74.
+(pdftex.def)             Requested size: 289.06754pt x 180.6672pt.
+ <vg-mf-story.jpg, id=28, 1927.2pt x 1204.5pt>
+File: vg-mf-story.jpg Graphic file (type jpg)
+
+<use vg-mf-story.jpg>
+Package pdftex.def Info: vg-mf-story.jpg used on input line 81.
+(pdftex.def)             Requested size: 289.06754pt x 180.6672pt.
+ [6 <./vg-mf-gameplay.jpg> <./vg-mf-story.jpg>]
+<vg-mf-originality.jpg, id=32, 1927.2pt x 1204.5pt>
+File: vg-mf-originality.jpg Graphic file (type jpg)
+
+<use vg-mf-originality.jpg>
+Package pdftex.def Info: vg-mf-originality.jpg used on input line 89.
+(pdftex.def)             Requested size: 289.06754pt x 180.6672pt.
+ <vg-rules.jpg, id=33, 1927.2pt x 1204.5pt>
+File: vg-rules.jpg Graphic file (type jpg)
+
+<use vg-rules.jpg>
+Package pdftex.def Info: vg-rules.jpg used on input line 96.
+(pdftex.def)             Requested size: 289.06754pt x 180.6672pt.
+ [7 <./vg-mf-originality.jpg> <./vg-rules.jpg>]
+<vg-surface-g-o.jpg, id=38, 1927.2pt x 1204.5pt>
+File: vg-surface-g-o.jpg Graphic file (type jpg)
+ <use vg-surface-g-o.jpg>
+Package pdftex.def Info: vg-surface-g-o.jpg used on input line 104.
+(pdftex.def)             Requested size: 231.25403pt x 144.53375pt.
+
+<vg-surface-g-s.jpg, id=39, 1927.2pt x 1204.5pt>
+File: vg-surface-g-s.jpg Graphic file (type jpg)
+ <use vg-surface-g-s.jpg>
+Package pdftex.def Info: vg-surface-g-s.jpg used on input line 110.
+(pdftex.def)             Requested size: 231.25403pt x 144.53375pt.
+
+[8 <./vg-surface-g-o.jpg> <./vg-surface-g-s.jpg>]
+<vg-surface-s-o.jpg, id=43, 1927.2pt x 1204.5pt>
+File: vg-surface-s-o.jpg Graphic file (type jpg)
+ <use vg-surface-s-o.jpg>
+Package pdftex.def Info: vg-surface-s-o.jpg used on input line 118.
+(pdftex.def)             Requested size: 289.06754pt x 180.6672pt.
+
+[9 <./vg-surface-s-o.jpg>] (dami.aux) ) 
 Here is how much of TeX's memory you used:
- 541 strings out of 493014
- 6567 string characters out of 6139343
- 58790 words of memory out of 5000000
- 4148 multiletter control sequences out of 15000+600000
- 5496 words of font info for 20 fonts, out of 8000000 for 9000
- 1141 hyphenation exceptions out of 8191
- 25i,2n,19p,7511b,253s stack positions out of 5000i,500n,10000p,200000b,80000s
-No pages of output.
+ 1534 strings out of 493616
+ 22086 string characters out of 3143577
+ 79020 words of memory out of 3000000
+ 4943 multiletter control sequences out of 15000+200000
+ 5496 words of font info for 20 fonts, out of 3000000 for 9000
+ 1025 hyphenation exceptions out of 8191
+ 37i,6n,23p,806b,211s stack positions out of 5000i,500n,10000p,200000b,50000s
+<C:/Program Files/MiKTeX 2.9/fonts/type1
+/public/amsfonts/cm/cmbx12.pfb><C:/Program Files/MiKTeX 2.9/fonts/type1/public/
+amsfonts/cm/cmr10.pfb><C:/Program Files/MiKTeX 2.9/fonts/type1/public/amsfonts/
+cm/cmti10.pfb>
+Output written on dami.pdf (9 pages, 2634630 bytes).
+PDF statistics:
+ 58 PDF objects out of 1000 (max. 8388607)
+ 0 named destinations out of 1000 (max. 500000)
+ 71 words of extra memory for PDF output out of 10000 (max. 10000000)
+
