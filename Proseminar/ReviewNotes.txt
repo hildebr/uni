@@ -1,7 +1,0 @@
-Ich habe nur zwei Tippfehler entdeckt: (1.2) 2. Paragraph "..dass es gibt nicht genug erfahrene Entwickler gibt.." und (2.3) vorletzter Paragraph "Zusätzlich wird [..]die Contributions.."
-
-
-Es könnte einiges getan werden, um es einfacher zu machen, die Argumentation nachzuvollziehen. Eine Sache, die ich gerne zum Verständnis am Anfang besser erläutert gesehen hätte, wären die erwähnten klassischen Code-Metriken.
-
-"Abschnitt 2, zweiter Absatz, dritte Zeile: hier könntest Du wieder auf Graphik 2 verweisen."
-oder annotiertes PDF bzw. Scan anhängen.

@@ -1,7 +1,0 @@
-lightweight für den server
-event-driven statt response-request
-für simple nachrichten
-wenig latenz
-braucht einen handshake, dann persistenter kanal
-sicherheitsrisiko
-meißt in kombination mit sub-protokoll, aber nicht benötigt
